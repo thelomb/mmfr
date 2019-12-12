@@ -7,7 +7,7 @@ def quarter_of_date(dt):
 
 def quarter_start(dt):
     d = date.fromisoformat(dt)
-    return (d.month - 1) % 3 == 0 and d.day == 1
+    return date(year=d.year, month=d.month-2, day=1).isoformat()
 
 def quarter_end(dt):
     d = date.fromisoformat(dt)

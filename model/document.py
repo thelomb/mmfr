@@ -1,5 +1,4 @@
 from model import pmmfr as pmmfr
-from model.fund_static import FundStaticData
 from model.fund_calc import FundDynamicData
 
 class Document():
@@ -10,13 +9,6 @@ class Document():
         self.MnyMktFndRpt.append(self.FndRpt)
         document = pmmfr.Document(MnyMktFndRpt=self.MnyMktFndRpt)
         self.document = document
-
-    def static_block(self, data):
-        static = FundStaticData(data)
-        self.Upd.RptgYr=static.RptgYr
-        self.Upd.RptgPrdFrToQrtr=static.RptgPrdFrToQrtr
-        self.Upd.RptgPrd=static.RptgPrd
-        self.Upd.FndData = static.FndData
 
     def dynamic_block(self):
         dynamic = FundDynamicData()

@@ -1,69 +1,18 @@
 from . import pmmfr
 from datetime import date
 from .helper import quarter_of_date, quarter_start, quarter_end, is_european_country
-class FundStaticData():
-
-    def __init__(self, static_data):
-        self.static_data = static_data
-
-        # instantiate depending objects
-        self.reporting_period(self.static_data.start_date, self.static_data.end_date)
-        fi = FundIdentity(mmf_lei=self.static_data.mmf_lei,
-                          mmf_national_code=self.static_data.mmf_national_code,
-                          mmf_member_state_authority=self.static_data.mmf_member_state_authority,
-                          mmf_name=self.static_data.mmf_name,
-                          mmf_domicile=self.static_data.mmf_domicile,
-                          mmf_ecb_code=self.static_data.mmf_ecb_code)
-
-        fm = FundMgtCo(mgr_lei=self.static_data.mgr_lei,
-                       mgr_name=self.static_data.mgr_name,
-                       mgr_ecb_code=self.static_data.mgr_ecb_code,
-                       mgr_national_code_authority=self.static_data.mgr_national_code_authority,
-                       mgr_ctry=self.static_data.mgr_ctry,
-                       mmf_national_code_authority=self.static_data.mmf_national_code_authority)
-
-
-
-        fa = FundAttributes(mmf_name=self.static_data.mmf_name,
-                            legal_framework=self.static_data.legal_framework,
-                            staff_saving_plan=self.static_data.staff_saving_plan,
-                            mmf_marketing=self.static_data.mmf_marketing,
-                            base_ccy=self.static_data.base_ccy,
-                            inception_date=self.static_data.inception_date,
-                            depositary_lei=self.static_data.depositary_lei,
-                            depositary_national_code=self.static_data.depositary_national_code,
-                            depositary_name=self.static_data.depositary_name,
-                            highest_nav_share_class_isin=self.static_data.highest_nav_share_class_isin,
-                            mmf_type=self.static_data.mmf_type,
-                            master_feed_type=self.static_data.master_feed_type,
-                            share_classes=self.static_data.share_classes)
-
-        self.FndData = FundData(FndNttyId=fi, FundMgtCo=fm, FundAttributes=fa)
-
-    def reporting_period(self, start_date, end_date):
-        rp = ReportingPeriod(start_date, end_date)
-        self.RptgYr = rp.RptgYr
-        self.RptgPrdFrToQrtr = rp.RptgPrdFrToQrtr
-        self.RptgPrd = rp.RptgPrd
-
-
 from .errors import EmptyDate
 class ReportingPeriod():
-        def __init__(self, start_date, end_date):
-            if start_date is None:
+        def __init__(self, report_date):
+            if report_date is None:
                 raise EmptyDate()
-            if end_date is None:
-                raise EmptyDate()
-            if not (pmmfr.ISODate(start_date) and pmmfr.ISODate(end_date)):
+            if not pmmfr.ISODate(report_date):
                 raise
-            if not date.fromisoformat(start_date).year == date.fromisoformat(end_date).year:
+            if not quarter_end(report_date):
                 raise
-            if start_date >= end_date:
-                raise
-            if not quarter_start(start_date):
-                raise
-            if not quarter_end(end_date):
-                raise
+            else:
+                end_date = report_date
+                start_date = quarter_start(end_date)
             quarter_start_enum = quarter_of_date(start_date)
             quarter_end_enum = quarter_of_date(end_date)
             self.RptgYr = pmmfr.ISOYear(date.fromisoformat(start_date).year)
