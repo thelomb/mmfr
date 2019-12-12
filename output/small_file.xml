@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ns1:Document xmlns:ns1="urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01">
+    <ns1:MnyMktFndRpt>
+        <ns1:FndRpt>
+            <ns1:Upd>
+                <ns1:RptgYr>2019</ns1:RptgYr>
+                <ns1:RptgPrdFrToQrtr>
+                    <ns1:FrPrd>QTR1</ns1:FrPrd>
+                    <ns1:ToPrd>QTR1</ns1:ToPrd>
+                </ns1:RptgPrdFrToQrtr>
+                <ns1:RptgPrd>
+                    <ns1:FrDtToDt>
+                        <ns1:FrDt>2019-01-01</ns1:FrDt>
+                        <ns1:ToDt>2019-03-31</ns1:ToDt>
+                    </ns1:FrDtToDt>
+                </ns1:RptgPrd>
+                <ns1:FndData>
+                    <ns1:FndNttyId>
+                        <ns1:LEI>ABCDEFGHIJKLMNOPQR02</ns1:LEI>
+                        <ns1:NtlRegnNb>
+                            <ns1:Id>a company</ns1:Id>
+                            <ns1:Issr>FR</ns1:Issr>
+                        </ns1:NtlRegnNb>
+                        <ns1:Nm>a company name</ns1:Nm>
+                        <ns1:CtryOfDmcl>
+                            <ns1:Ctry>FR</ns1:Ctry>
+                        </ns1:CtryOfDmcl>
+                    </ns1:FndNttyId>
+                    <ns1:FndMgmtCpny>
+                        <ns1:LEI>ABCDEFGHIJKLMNOPQR02</ns1:LEI>
+                        <ns1:FndAuthrtyRegnNb>
+                            <ns1:Id>an authority</ns1:Id>
+                        </ns1:FndAuthrtyRegnNb>
+                        <ns1:FndMgmtCpnyAuthrtyRegnNb>
+                            <ns1:Id>abc</ns1:Id>
+                            <ns1:Issr>FR</ns1:Issr>
+                        </ns1:FndMgmtCpnyAuthrtyRegnNb>
+                        <ns1:AltrnId>
+                            <ns1:Id>an alt name</ns1:Id>
+                            <ns1:Issr>ECB</ns1:Issr>
+                        </ns1:AltrnId>
+                        <ns1:Nm>a long name here</ns1:Nm>
+                    </ns1:FndMgmtCpny>
+                    <ns1:FndAttrbts>
+                        <ns1:Nm>my fund</ns1:Nm>
+                        <ns1:LglFrmwk>
+                            <ns1:Cd>UCIT</ns1:Cd>
+                        </ns1:LglFrmwk>
+                        <ns1:StffWthSvgsPlan>true</ns1:StffWthSvgsPlan>
+                        <ns1:RegdDstrbtnCtry>
+                            <ns1:Ctry>FR</ns1:Ctry>
+                        </ns1:RegdDstrbtnCtry>
+                        <ns1:RegdDstrbtnCtry>
+                            <ns1:NonEurpnCtry>true</ns1:NonEurpnCtry>
+                        </ns1:RegdDstrbtnCtry>
+                        <ns1:BaseCcy>EUR</ns1:BaseCcy>
+                        <ns1:DpstryId>
+                            <ns1:LEI>ABCDEFGHIJKLMNOPQR02</ns1:LEI>
+                            <ns1:NtlRegnNb>
+                                <ns1:Id>a custodian</ns1:Id>
+                            </ns1:NtlRegnNb>
+                            <ns1:Nm>custodian long name</ns1:Nm>
+                        </ns1:DpstryId>
+                        <ns1:MnyMktFndTp>
+                            <ns1:Cd>STLV</ns1:Cd>
+                        </ns1:MnyMktFndTp>
+                        <ns1:MstrFnd>MSTR</ns1:MstrFnd>
+                        <ns1:ShrClssInd>false</ns1:ShrClssInd>
+                        <ns1:ShrClss>
+                            <ns1:NoShrClssInf>
+                                <ns1:Id>
+                                    <ns1:ISIN>LU1234567890</ns1:ISIN>
+                                </ns1:Id>
+                            </ns1:NoShrClssInf>
+                        </ns1:ShrClss>
+                        <ns1:FndRltdEvt>
+                            <ns1:IncptnDt>2010-01-01</ns1:IncptnDt>
+                            <ns1:LastRptSnt>true</ns1:LastRptSnt>
+                        </ns1:FndRltdEvt>
+                    </ns1:FndAttrbts>
+                </ns1:FndData>
+                <ns1:RptData>
+                    <ns1:DataSetActn>NOTX</ns1:DataSetActn>
+                </ns1:RptData>
+            </ns1:Upd>
+        </ns1:FndRpt>
+    </ns1:MnyMktFndRpt>
+</ns1:Document>
