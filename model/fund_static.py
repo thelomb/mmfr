@@ -65,7 +65,8 @@ class FundAttributes(pmmfr.FinancialInstrumentAttributes101__1):
                  highest_nav_share_class_isin,
                  mmf_type,
                  master_feed_type,
-                 share_classes):
+                 share_classes,
+                 last_statement=None):
         super().__init__()
         self.Nm = pmmfr.Max350Text(mmf_name)
         self.LglFrmwk = pmmfr.LegalFramework5Choice__1(Cd=pmmfr.LegalFramework2Code(legal_framework))
@@ -105,8 +106,10 @@ class FundAttributes(pmmfr.FinancialInstrumentAttributes101__1):
         else:
             self.ShrClssInd = pmmfr.TrueFalseIndicator(False)
             self.ShrClss.append(pmmfr.ShareClassList1__1(Id=pmmfr.SecurityIdentification31Choice(Nm=pmmfr.Max35Text(name))))
-        self.FndRltdEvt = pmmfr.RelatedEvent2(IncptnDt=pmmfr.ISODate(inception_date),
-                                                         LastRptSnt=pmmfr.TrueFalseIndicator(True))
+        events = RelatedEvents()
+        events.IncptnDt = IncptnDt=pmmfr.ISODate(inception_date) if inception_date else None
+        events.LastRptSnt = pmmfr.TrueFalseIndicator(True) if last_statement else pmmfr.TrueFalseIndicator(False)
+        self.FndRltdEvt = events
         # to do related event
         # date_merger = None  # A.3.8_Date_Merger
         #date_liquidation = None  # A.3.9_Date_Liquidation
@@ -126,4 +129,11 @@ class ShareClass(pmmfr.ShareClassList1__2):
         self.Ccy = pmmfr.ActiveOrHistoricCurrencyCode(ccy)
         self.HghstNetAsstVal = pmmfr.TrueFalseIndicator(is_highest_nav)
 
+class RelatedEvents(pmmfr.RelatedEvent2):
+    def __init__(self):
+        super().__init__()
 
+class FundReport(pmmfr.FundReportData1__1):
+    def __init__(self):
+        super().__init__()
+        self.Upd = pmmfr.FundReportUpdate2__1()

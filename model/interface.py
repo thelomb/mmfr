@@ -1,9 +1,11 @@
-from .fund_static import FundData, FundAttributes, FundMgtCo, FundIdentity, ReportingPeriod
+from .fund_static import FundData, FundAttributes, FundMgtCo, FundIdentity, ReportingPeriod, FundReport
 from datetime import date
+import datetime
 
 class StaticData():
     def __init__(self):
-        self.fund_code = 'xxx'
+        self.fund_code = ''
+        self.fund_name = ''
         self.report_date = date.today()
         self.mmf_lei = ''
         self.mmf_national_code = ''
@@ -41,14 +43,21 @@ class StaticData():
         self.nav_liquidity_fees = 0
         self.other_arrangements = ''
         self.nav_other_arrangements = ''
+        self.sc_name = ''
+        self.sc_isin = ''
+        self.sc_ccy = ''
+        self.dist_countries = ''
 
-    def from_itself(self, data):
+
+    def from_dict(self, data):
         binding = Binding().map
-        print(binding)
         for key, value in vars(self).items():
-            print(key)
-            setattr(self, key, data[binding[key]])
-
+            try:
+                setattr(self, key, self.postprocess(key, data[binding[key]]))
+            except:
+                continue
+        self.create_share_classes()
+        self.create_dist_countries()
         fi = FundIdentity(mmf_lei=self.mmf_lei,
                           mmf_national_code=self.mmf_national_code,
                           mmf_member_state_authority=self.mmf_member_state_authority,
@@ -82,13 +91,36 @@ class StaticData():
         self.RptgPrdFrToQrtr = rp.RptgPrdFrToQrtr
         self.RptgPrd = rp.RptgPrd
 
-    def test(self):
-        for key, value in vars(self).items():
-            print(key, value, type(value))
-            if isinstance(value, float):
-                setattr(self, key, value+1)
-                print('now', key)
-        print('later', key)
+    def create_share_classes(self):
+        sc_name = self.sc_name.split(';')
+        sc_isin = self.sc_isin.split(';')
+        sc_ccy = self.sc_ccy.split(';')
+        if len(sc_ccy) == len(sc_isin) and len(sc_name) == len(sc_ccy):
+            for i in range(len(sc_isin)):
+                sc = {'isin': sc_isin[i],
+                      'ccy': sc_ccy[i],
+                      'type': sc_name[i]}
+                self.share_classes.append(sc)
+        else:
+            raise Exception('problem with share class mapping, inconsistent number of information')
+
+
+    def create_dist_countries(self):
+        self.dist_countries = self.dist_countries.split(sep=';')
+
+    @staticmethod
+    def postprocess(key, data):
+        if isinstance(data, str):
+            data = data.strip()
+            if data in ['Yes', 'YES', 'No', 'NO']:
+                data = data in ['Yes', 'YES']
+        if key == 'mmf_type':
+            data = MMFType.to_code(data)
+        if key == 'master_feed_type':
+            data = MasterFeedType.to_code(data)
+        if isinstance(data, datetime.datetime):
+            data = data.date().isoformat()
+        return data
 
 class Binding():
     def __init__(self):
@@ -130,9 +162,55 @@ class Binding():
             'nav_liquidity_fees': 'A.7.7_c_MMF_Arrangements_NAV_liquidity_fees',
             'other_arrangements': 'A.7.7_d_MMF_Arrangements_description_other',
             'nav_other_arrangements': 'A.7.7_e_MMF_Arrangements_NAV_other',
-            'fund_code': 'TPA_Fund_Code'
+            'fund_code': 'TPA_Fund_Code',
+            'sc_name' : 'A.3.6_a_Shareclass_Name_MMF',
+            'sc_isin': 'A.3.6_b_Shareclass_ISINS_MMF',
+            'sc_ccy': 'A.3.7_a_Shareclass_Currencies_MMF',
+            'dist_countries': 'A.1.10_Member_State_Marketing_MMF',
+            'fund_name': 'Fund_Name'
 
         }
+
+class MMFType():
+    mapping = { 'shorttermlvnavmoneymarketfund': 'STLV',
+                'shorttermpublicdebtcnavmoneymarketfund': 'STCN',
+                'shorttermvnavmoneymarketfund': 'STVN',
+                'standardvnavmoneymarketfund': 'SDVN',
+                'ShortTermLVNAVMoneyMarketFund': 'STLV',
+                'ShortTermPublicDebtCNAVMoneyMarketFund': 'STCN',
+                'ShortTermVNAVMoneyMarketFund': 'STVN',
+                'StandardVNAVMoneyMarketFund': 'SDVN',
+                'shorttermlvnavmmf': 'STLV',
+                'shorttermpublicdebtcnavmmf': 'STCN',
+                'shorttermvnavmmf': 'STVN',
+                'standardvnavmmf': 'SDVN'
+    }
+
+    @classmethod
+    def to_code(cls, value):
+        if isinstance(value, str):
+            space = str.maketrans(dict.fromkeys(' '))
+            value = value.translate(space)
+            return cls.mapping[value.lower()]
+        return value
+
+class MasterFeedType():
+    mapping = { 'fder': 'FDER',
+                'mstr': 'MSTR',
+                'none': 'NONE',
+                'feeder': 'FDER',
+                'master': 'MSTR'
+    }
+
+    @classmethod
+    def to_code(cls, value):
+        if isinstance(value, str):
+            space = str.maketrans(dict.fromkeys(' '))
+            value = value.translate(space)
+            return cls.mapping[value.lower()]
+        if value is None:
+            return 'NONE'
+        return value
 
 
 # report_date = data['A.1.1_Reporting_Period'].date().isoformat()  # '2019-09-30' # A.1.1_Reporting_Period
@@ -173,3 +251,21 @@ class Binding():
 # nav_liquidity_fees = 0  # A.7.7_c_MMF_Arrangements_NAV_liquidity_fees
 # other_arrangements = None  # A.7.7_d_MMF_Arrangements_description_other
 # nav_other_arrangements = None  # A.7.7_e_MMF_Arrangements_NAV_other
+
+
+class PositionData():
+    pass
+
+class Fund():
+    def __init__(self, fund_code):
+        self.fund_code=fund_code
+        self.FndRpt = FundReport()
+
+    def static_data(self, data):
+        static_fund_data = StaticData()
+        static_fund_data.from_dict(data=data)
+        self.FndRpt.Upd.RptgYr = static_fund_data.RptgYr
+        self.FndRpt.Upd.RptgPrdFrToQrtr = static_fund_data.RptgPrdFrToQrtr
+        self.FndRpt.Upd.RptgPrd = static_fund_data.RptgPrd
+        self.FndRpt.Upd.FndData = static_fund_data.FndData
+
