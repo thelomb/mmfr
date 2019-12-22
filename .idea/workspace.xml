@@ -2,21 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6f73fd5-82cd-4eef-8273-2e7358008f84" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/execution.py" beforeDir="false" afterPath="$PROJECT_DIR$/execution.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/input/20191205 SA MMFR Foundational Data Report v3.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/input/20191205 SA MMFR Foundational Data Report v3.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/document.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/excel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/fund_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/fund_calc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/fund_static.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/fund_static.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/interface.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/output/test.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/output/test_beautiful.xml" beforeDir="false" afterPath="$PROJECT_DIR$/output/test_beautiful.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input/20191205 SA MMFR Foundational Data Report v3.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/input/20191205 SA MMFR Foundational Data Report v3.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/input/~$20191205 SA MMFR Foundational Data Report v3.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/app/input/~$20191205 SA MMFR Foundational Data Report v3.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/errors.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/errors.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/excel.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/excel.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/fund_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/fund_calc.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/fund_static.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/fund_static.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/helper.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/helper.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/interface.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/interface.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/pmmfr.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/pmmfr.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/report.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/report.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/exa2.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/old/exa2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/mmfr_small.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/old/mmfr_small.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/old/pmmfr_old.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/old/pmmfr_old.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/small_file.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/output/small_file.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/test.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/output/test.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/test_beautiful.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/output/test_beautiful.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -34,11 +52,11 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/model" />
       <recent name="$PROJECT_DIR$/lib" />
       <recent name="$PROJECT_DIR$/output" />
       <recent name="$PROJECT_DIR$/old" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunManager" selected="Python.execution">
@@ -50,12 +68,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app/model" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/excel.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/model/excel.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -86,7 +104,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="helper" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="interface (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="mmfr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -94,34 +112,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/app/model" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/helper.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="interface" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="mmfr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/interface.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/app/model/interface.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -152,13 +148,35 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="tester" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="mmfr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/tester.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Python.execution" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.interface" />
         <item itemvalue="Python.excel" />
-        <item itemvalue="Python.helper" />
+        <item itemvalue="Python.test" />
+        <item itemvalue="Python.interface (1)" />
+        <item itemvalue="Python.tester" />
       </list>
     </recent_temporary>
   </component>
@@ -184,7 +202,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575899226344</updated>
-      <workItem from="1575899234923" duration="84722000" />
+      <workItem from="1575899234923" duration="97252000" />
+      <workItem from="1577001287639" duration="7352000" />
     </task>
     <servers />
   </component>
@@ -196,34 +215,39 @@
       <screen x="-1920" y="-198" width="1920" height="1057" />
     </state>
     <state x="-1204" y="140" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.877/-3840.-198.1920.1057/-1920.-198.1920.1057@-1920.-198.1920.1057" timestamp="1575968440748" />
-    <state width="1398" height="363" key="GridCell.Tab.0.bottom" timestamp="1576271696260">
+    <state width="1398" height="162" key="GridCell.Tab.0.bottom" timestamp="1577013359986">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1878" height="363" key="GridCell.Tab.0.bottom/0.23.1440.877/-1920.23.1920.1057/-3840.23.1920.1057@-1920.23.1920.1057" timestamp="1576235992112" />
     <state width="1878" height="290" key="GridCell.Tab.0.bottom/0.23.1440.877/-3840.-198.1920.1057/-1920.-198.1920.1057@-1920.-198.1920.1057" timestamp="1576059164151" />
-    <state width="1398" height="363" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1576271696260" />
-    <state width="1398" height="363" key="GridCell.Tab.0.center" timestamp="1576271696260">
+    <state width="1398" height="162" key="GridCell.Tab.0.bottom/0.23.1440.877@0.23.1440.877" timestamp="1577013359986" />
+    <state width="1398" height="162" key="GridCell.Tab.0.center" timestamp="1577013359985">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1878" height="363" key="GridCell.Tab.0.center/0.23.1440.877/-1920.23.1920.1057/-3840.23.1920.1057@-1920.23.1920.1057" timestamp="1576235992111" />
     <state width="1878" height="290" key="GridCell.Tab.0.center/0.23.1440.877/-3840.-198.1920.1057/-1920.-198.1920.1057@-1920.-198.1920.1057" timestamp="1576059164150" />
-    <state width="1398" height="363" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1576271696260" />
-    <state width="1398" height="363" key="GridCell.Tab.0.left" timestamp="1576271696259">
+    <state width="1398" height="162" key="GridCell.Tab.0.center/0.23.1440.877@0.23.1440.877" timestamp="1577013359985" />
+    <state width="1398" height="162" key="GridCell.Tab.0.left" timestamp="1577013359985">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1878" height="363" key="GridCell.Tab.0.left/0.23.1440.877/-1920.23.1920.1057/-3840.23.1920.1057@-1920.23.1920.1057" timestamp="1576235992111" />
     <state width="1878" height="290" key="GridCell.Tab.0.left/0.23.1440.877/-3840.-198.1920.1057/-1920.-198.1920.1057@-1920.-198.1920.1057" timestamp="1576059164150" />
-    <state width="1398" height="363" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1576271696259" />
-    <state width="1398" height="363" key="GridCell.Tab.0.right" timestamp="1576271696260">
+    <state width="1398" height="162" key="GridCell.Tab.0.left/0.23.1440.877@0.23.1440.877" timestamp="1577013359985" />
+    <state width="1398" height="162" key="GridCell.Tab.0.right" timestamp="1577013359986">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state width="1878" height="363" key="GridCell.Tab.0.right/0.23.1440.877/-1920.23.1920.1057/-3840.23.1920.1057@-1920.23.1920.1057" timestamp="1576235992112" />
     <state width="1878" height="290" key="GridCell.Tab.0.right/0.23.1440.877/-3840.-198.1920.1057/-1920.-198.1920.1057@-1920.-198.1920.1057" timestamp="1576059164151" />
-    <state width="1398" height="363" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1576271696260" />
-    <state x="397" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1575899486915">
+    <state width="1398" height="162" key="GridCell.Tab.0.right/0.23.1440.877@0.23.1440.877" timestamp="1577013359986" />
+    <state x="397" y="294" key="com.intellij.ide.util.TipDialog" timestamp="1577001291769">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="397" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877/-1920.23.1920.1057/-3840.23.1920.1057@-1920.23.1920.1057" timestamp="1575899486915" />
+    <state x="397" y="294" key="com.intellij.ide.util.TipDialog/0.23.1440.877@0.23.1440.877" timestamp="1577001291769" />
+    <state x="503" y="385" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1576423610787">
+      <screen x="0" y="23" width="1440" height="877" />
+    </state>
+    <state x="503" y="385" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.877@0.23.1440.877" timestamp="1576423610787" />
     <state x="-1280" y="194" width="639" height="714" key="find.popup" timestamp="1576223886514">
       <screen x="-1920" y="23" width="1920" height="1057" />
     </state>
@@ -240,9 +264,12 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/mmfr$mmfr_processing.coverage" NAME="mmfr_processing Coverage Results" MODIFIED="1575996483639" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mmfr$helper.coverage" NAME="helper Coverage Results" MODIFIED="1576062608650" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
-    <SUITE FILE_PATH="coverage/mmfr$excel.coverage" NAME="excel Coverage Results" MODIFIED="1576182995515" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
-    <SUITE FILE_PATH="coverage/mmfr$execution.coverage" NAME="execution Coverage Results" MODIFIED="1576271696250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mmfr$tester.coverage" NAME="tester Coverage Results" MODIFIED="1576527518567" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
+    <SUITE FILE_PATH="coverage/mmfr$config.coverage" NAME="config Coverage Results" MODIFIED="1576527305900" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mmfr$excel.coverage" NAME="excel Coverage Results" MODIFIED="1577003970032" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/model" />
+    <SUITE FILE_PATH="coverage/mmfr$execution.coverage" NAME="execution Coverage Results" MODIFIED="1577013359977" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/mmfr$interface.coverage" NAME="interface Coverage Results" MODIFIED="1576187708146" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
-    <SUITE FILE_PATH="coverage/mmfr$test.coverage" NAME="test Coverage Results" MODIFIED="1576269746853" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/mmfr$interface__1_.coverage" NAME="interface (1) Coverage Results" MODIFIED="1576947737911" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/app/model" />
+    <SUITE FILE_PATH="coverage/mmfr$test.coverage" NAME="test Coverage Results" MODIFIED="1577001910511" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

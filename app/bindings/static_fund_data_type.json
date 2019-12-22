@@ -1,0 +1,108 @@
+        self.fund_code = ''
+        self.fund_name = ''
+        self.report_date = date.today()
+        self.mmf_lei = ''
+        self.mmf_national_code = ''
+        self.mmf_member_state_authority = ''
+        self.mmf_name = ''
+        self.mmf_domicile = ''
+        self.mmf_ecb_code = ''
+        self.legal_framework = '' #enum
+        self.staff_saving_plan = False
+        self.mmf_marketing = []
+        self.base_ccy = ''
+        self.inception_date = date.today()
+        self.mmf_national_code_authority = ''
+        self.mgr_national_code_authority = ''
+        self.mgr_lei = ''
+        self.mgr_ecb_code = ''
+        self.mgr_name = ''
+        self.mgr_ctry = ''
+        self.depositary_lei = ''
+        self.depositary_national_code = ''
+        self.depositary_name = ''
+        self.mmf_type = '' # enum
+        self.master_feed_type = '' #enum, capitalize?
+        self.master_lei = ''
+        self.master_national_code = ''
+        self.master_legal_name = ''
+        self.share_classes = []
+        self.highest_nav_share_class_isin = ''
+        self.date_merger = date.today()
+        self.date_liquidation = date.today()
+        self.redemption_frequency = ''
+        self.redemption_notice_period = 0
+        self.nav_gates = 0
+        self.nav_suspension = 0
+        self.nav_liquidity_fees = 0
+        self.other_arrangements = ''
+        self.nav_other_arrangements = ''
+        self.sc_name = ''
+        self.sc_isin = ''
+        self.sc_ccy = ''
+        self.dist_countries = ''
+
+{ "attributes": {
+  "report_date": "XLDate",
+  "mmf_lei": "XLString",
+  "mmf_national_code": "XLString",
+  "mmf_member_state_authority": "XLString",
+  "mmf_name": "XLString",
+  "mmf_domicile": "XLString",
+  "mmf_ecb_code": "XLString",
+  "legal_framework": "XLLegalFramework",
+  "staff_saving_plan": "XLBool",
+  "mmf_marketing": "A.1.10_Member_State_Marketing_MMF",
+  "base_ccy": "A.1.12_Base_Currency_MMF",
+  "inception_date": "A.1.11_Inception_Date_MMF",
+  "mmf_national_code_authority": "A.1.13_National_Code_Manager_Authority_MMF",
+  "mgr_national_code_authority": "A.1.14_National_Code_Manager_Authority_Manager",
+  "mgr_lei": "A.1.15_LEI_Manager",
+  "mgr_ecb_code": "A.1.16_ECB_Code_Manager",
+  "mgr_name": "A.1.17_Name_Manager",
+  "mgr_ctry": "A.1.18_Country_Manager",
+  "depositary_lei": "A.1.19_LEI_Depositary",
+  "depositary_national_code": "A.1.20_National_Code_Depository",
+  "depositary_name": "A.1.21_Legal_Name_Depository",
+  "mmf_type": "A.2.1_Type_MMF",
+  "master_feed_type": "A.3.1_Master_Feeder_MMF",
+  "master_lei": "A.3.2_LEI_Master",
+  "master_national_code": "A.3.3_National_Code_Master",
+  "master_legal_name": "A.3.4_Legal_Name_Master",
+  "share_classes": "share_classes",
+  "highest_nav_share_class_isin": "A.3.7_b_Shareclass_Highest NAV",
+  "date_merger": "A.3.8_Date_Merger",
+  "date_liquidation": "A.3.9_Date_Liquidation",
+  "redemption_frequency": "A.7.5_Redemption_Frequency",
+  "redemption_notice_period": "A.7.6_Redemption_Notice_Period_in_Days",
+  "nav_gates": "A.7.7_a_MMF_Arrangements_NAV_gates",
+  "nav_suspension": "A.7.7_b_MMF_Arrangements_NAV_suspension_of_dealing",
+  "nav_liquidity_fees": "A.7.7_c_MMF_Arrangements_NAV_liquidity_fees",
+  "other_arrangements": "A.7.7_d_MMF_Arrangements_description_other",
+  "nav_other_arrangements": "A.7.7_e_MMF_Arrangements_NAV_other",
+  "fund_code": "TPA_Fund_Code",
+  "sc_name": "A.3.6_a_Shareclass_Name_MMF",
+  "sc_isin": "A.3.6_b_Shareclass_ISINS_MMF",
+  "sc_ccy": "A.3.7_a_Shareclass_Currencies_MMF",
+  "dist_countries": "A.1.10_Member_State_Marketing_MMF",
+  "fund_name": "Fund_Name"
+  }
+}
+
+        class XLDate:
+    pass
+
+class XLString:
+    pass
+
+class XLBool:
+    pass
+
+class XLMMFType:
+    pass
+
+class XLMasterFeedType:
+    pass
+
+class XLLegalFramework:
+    pass

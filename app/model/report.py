@@ -1,6 +1,5 @@
-from model import pmmfr as pmmfr
-from model.fund_calc import FundDynamicData
-from model.interface import StaticData, Fund
+from app.model import pmmfr as pmmfr
+from app.model.interface import Fund
 
 class Report():
     def __init__(self):

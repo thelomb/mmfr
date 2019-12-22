@@ -3,7 +3,13 @@ from datetime import date
 from .helper import quarter_of_date, quarter_start, quarter_end, is_european_country
 from .errors import EmptyDate
 class ReportingPeriod():
-        def __init__(self, report_date):
+
+        def __init__(self):
+            self.RptgYr = ''
+            self.RptgPrdFrToQrtr = ''
+            self.RptgPrd = ''
+
+        def set_period(self, report_date):
             if report_date is None:
                 raise EmptyDate()
             if not pmmfr.ISODate(report_date):
@@ -27,13 +33,13 @@ class FundIdentity(pmmfr.PartyIdentification212__1):
         super().__init__()
         self.LEI = pmmfr.LEIIdentifier(mmf_lei)
         self.NtlRegnNb = pmmfr.GenericOrganisationIdentification1__1(Id=pmmfr.Max35Text(mmf_national_code),
-                                                                               Issr=pmmfr.CountryCode(mmf_member_state_authority))
-        self.AltrnId = pmmfr.GenericOrganisationIdentification1__2(Id=pmmfr.Max35Text(mmf_ecb_code),Issr=pmmfr.Max35Text_fixed('ECB'))
+                                                                     Issr=pmmfr.CountryCode(mmf_member_state_authority))
+        self.AltrnId = pmmfr.GenericOrganisationIdentification1__2(Id=pmmfr.Max35Text(mmf_ecb_code), Issr=pmmfr.Max35Text_fixed('ECB'))
         self.Nm = pmmfr.Max350Text(mmf_name)
         self.CtryOfDmcl = pmmfr.Country1Choice__1(Ctry=pmmfr.CountryCode(mmf_domicile))
 
 class FundData(pmmfr.FinancialInstrument82__1):
-    def __init__(self, FndNttyId, FundMgtCo, FundAttributes):
+    def __init__(self, FndNttyId=None, FundMgtCo=None, FundAttributes=None):
         super().__init__()
         self.FndNttyId = FndNttyId
         self.FndMgmtCpny = FundMgtCo
@@ -66,17 +72,17 @@ class FundAttributes(pmmfr.FinancialInstrumentAttributes101__1):
                  mmf_type,
                  master_feed_type,
                  share_classes,
+                 date_merger,
+                 date_liquidation,
                  last_statement=None):
         super().__init__()
         self.Nm = pmmfr.Max350Text(mmf_name)
         self.LglFrmwk = pmmfr.LegalFramework5Choice__1(Cd=pmmfr.LegalFramework2Code(legal_framework))
         self.StffWthSvgsPlan = pmmfr.TrueFalseIndicator(staff_saving_plan)
         no_eu = False
-        countries = []
         for ctry in mmf_marketing:
             if is_european_country(ctry):
-                countries = pmmfr.RegisteredDistributionCountry2Choice__1(pmmfr.CountryCode(ctry))
-                self.RegdDstrbtnCtry.append(countries)
+                self.RegdDstrbtnCtry.append(pmmfr.RegisteredDistributionCountry2Choice__1(pmmfr.CountryCode(ctry)))
             else:
                 no_eu=True
         if no_eu:
@@ -84,9 +90,9 @@ class FundAttributes(pmmfr.FinancialInstrumentAttributes101__1):
                 pmmfr.RegisteredDistributionCountry2Choice__1(NonEurpnCtry=pmmfr.TrueFalseIndicator_fixed('true')))
         self.BaseCcy= pmmfr.ActiveOrHistoricCurrencyCode(base_ccy)
         self.DpstryId = pmmfr.PartyIdentification212__2(LEI=pmmfr.LEIIdentifier(depositary_lei),
-                                                                   NtlRegnNb=pmmfr.GenericOrganisationIdentification1__3(
+                                                        NtlRegnNb=pmmfr.GenericOrganisationIdentification1__3(
                                                                   Id=pmmfr.Max35Text(depositary_national_code)),
-                                                                   Nm=pmmfr.Max350Text(depositary_name))
+                                                        Nm=pmmfr.Max350Text(depositary_name))
         self.MnyMktFndTp = pmmfr.MoneyMarketFundType1Choice__1(Cd=pmmfr.MoneyMarketFundType1Code(mmf_type))
         self.MstrFnd = pmmfr.MasterFundType1Code(master_feed_type)
         # to do
@@ -105,10 +111,14 @@ class FundAttributes(pmmfr.FinancialInstrumentAttributes101__1):
                 self.ShrClss.append(sc)
         else:
             self.ShrClssInd = pmmfr.TrueFalseIndicator(False)
-            self.ShrClss.append(pmmfr.ShareClassList1__1(Id=pmmfr.SecurityIdentification31Choice(Nm=pmmfr.Max35Text(name))))
+            self.ShrClss.append(
+                pmmfr.ShareClassList1__1(Id=pmmfr.SecurityIdentification31Choice(Nm=pmmfr.Max35Text(name))))
         events = RelatedEvents()
-        events.IncptnDt = IncptnDt=pmmfr.ISODate(inception_date) if inception_date else None
+        events.IncptnDt = pmmfr.ISODate(inception_date) if inception_date else None
         events.LastRptSnt = pmmfr.TrueFalseIndicator(True) if last_statement else pmmfr.TrueFalseIndicator(False)
+        events.MrgrDt = pmmfr.ISODate(date_merger) if date_merger else None
+        events.LqdtnDt = pmmfr.ISODate(date_liquidation) if date_liquidation else None
+
         self.FndRltdEvt = events
         # to do related event
         # date_merger = None  # A.3.8_Date_Merger
