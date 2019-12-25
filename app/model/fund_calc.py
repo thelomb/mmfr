@@ -522,40 +522,14 @@ class RpAgrmtHldg(pmmfr.Financialinstrument81__6):
 
 class RvsRpAgrmtCollData(pmmfr.FinancialInstrument80__1):
     def __init__(self,
-                 asset_type,
-                 cfi_iso,
-                 party_sector_type,
-                 maturity,
-                 notional_currency,
-                 quantity,
-                 val_type,
-                 credit_assessment,
-                 asset_ctry_code=None,
-                 party_lei=None,
-                 party_name=None,
-                 instr_name=None,
-                 instr_isin=None,
-                 base_ccy_price=None,
-                 report_ccy_price=None,
-                 base_ccy_ai=None,
-                 report_ccy_ai=None,
-                 base_ccy_mv=None,
-                 report_ccy_mv=None,
-                 reset_date=None):
+                 collat_instr_list,
+                 derogated_asset=False,
+                 base_ccy_val=None,
+                 report_ccy_val=None):
         super().__init__()
-        self.AsstTp = pmmfr.FinancialAssetType2Code__1(asset_type)
-        self.AsstId = AssetId(cfi_iso=cfi_iso, instr_name=instr_name, instr_isin=instr_isin)
-        self.PtyData = PartyData(party_sector_type, lei=party_lei, name=party_name)
-        self.AsstCtry = CountryOrSupraNational(asset_ctry_code)
-        self.AsstValtn = AssetVal(maturity=maturity,
-                                  notional_currency=notional_currency,
-                                  quantity=quantity,
-                                  val_type=val_type,
-                                  credit_assessment=credit_assessment,
-                                  base_ccy_price=base_ccy_price,
-                                  report_ccy_price=report_ccy_price,
-                                  base_ccy_ai=base_ccy_ai,
-                                  report_ccy_ai=report_ccy_ai,
-                                  base_ccy_mv=base_ccy_mv,
-                                  report_ccy_mv=report_ccy_mv,
-                                  reset_date=reset_date)
+        for instr in collat_instr_list:
+            isin = pmmfr.InstrumentIdentification3Choice__1()
+            isin.ISIN = instr
+            self.FinInstrmId.append(isin)
+        self.DrgtnRcvdAssts = pmmfr.TrueFalseIndicator(derogated_asset)
+        self.TtlVal = Amount(base_ccy_val=base_ccy_val, report_ccy_val=report_ccy_val)
