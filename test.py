@@ -1,4 +1,5 @@
 from datetime import datetime
+from app.model import pmmfr
 #
 #
 import sys
@@ -77,4 +78,3 @@ for i in l:
 # print(director["Nissan"])
 # print(director.car_type("Toyota"))
 # print(director.car_type("Nissan"))
-

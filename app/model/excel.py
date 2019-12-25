@@ -2,22 +2,31 @@ from openpyxl import Workbook, load_workbook
 import sys
 
 class Reader():
-    def __init__(self, sheetname='Sheet1'):
-        self.data = {}
+    def __init__(self):
+        self.header = []
         self.range = []
-        self.sheetname = sheetname
 
-    def parse(self, path):
+    def parse(self, path, sheetname):
+        if sheetname is None:
+            sheetname = 'Sheet1'
         wb = load_workbook(path, read_only=True)
-        sheet = wb[self.sheetname]
-        for i in range(1, sheet.max_row):
-            line = dict()
-            x = 0
-            for header in list(sheet.iter_rows())[0]:
-                line[header.value] = list(sheet.iter_rows())[i][x].value
-                x += 1
-            self.range.append(line)
-        return self.range
+        sheet = wb[sheetname]
+        for row in sheet.iter_rows(max_row=1, values_only=True):
+            self.header = list(row)
+        # for i in range(1, sheet.max_row):
+        #     line = dict()
+        #     x = 0
+        #     for header in list(sheet.iter_rows())[0]:
+        #         line[header.value] = list(sheet.iter_rows())[i][x].value
+        #         x += 1
+        #     self.range.append(line)
+        #     print('processed row:', i)
+        for row in sheet.iter_rows(min_row=2, values_only=True):
+            self.range.append(list(row))
+
+        print(self.header)
+        print(self.range)
+        return (self.header, self.range)
 
 class XLType():
     def __init__(self, cls):
@@ -98,3 +107,48 @@ class XLNumeric:
     @staticmethod
     def clean(v):
         return v
+
+class PositionPartySectory(XLEnum):
+    mapping = {
+        'SubjectToRegulationSupranationalPublicBody': 'SRSN',
+        'SubjectToRegulationSovereign': 'SRSB',
+        'SubjectToRegulationPublicBody': 'SRPB',
+        'SubjectToRegulationCentralBank': 'SRCB',
+        'Regional':'RGNL',
+        'OtherFinancialCorporation': 'OFCP',
+        'NotSubjectToRegulationSupranationalPublicBody':'NRSN',
+        'NotSubjectToRegulationSovereign': 'NRSB',
+        'NotSubjectToRegulationPublicBody':'NRPB',
+        'NotSubjectToRegulationCentralBank': 'NRCB',
+        'NonFinancialCorporation':'NFIN',
+        'NationalPublicBody': 'NTPB',
+        'Local':'LOCA',
+        'CreditInstitution': 'CDTI'
+    }
+
+
+class ValuationType(XLEnum):
+    mapping = {'MarkToModel':'MTMO',
+               'MarkToMarket': 'MTMA',
+               'AmortisedCost': 'AMCS'
+               }
+
+
+class AssessmentResultType(XLEnum):
+    mapping = {
+        'Favourable': 'FVRB',
+        'NotApplicable':'NOAP',
+        'Unfavourable': 'UFVB',
+        'NotPerformed': 'NOVF'
+    }
+
+class AssetType(XLEnum):
+    mapping = {
+        'SimpleTransparentStandardisedAssetBackedCommercialPaper': 'STSA',
+        'Securitisation': 'SCRT',
+        'AssetBackedCommercialPaper':  'ABCP',
+        'SimpleTransparentStandardisedSecuritisation': 'STSS',
+        'MoneyMarketInstrument': 'MMII',
+        'FinancialDerivativeInstrumentOverTheCounter': 'OTCD',
+        'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD'
+    }

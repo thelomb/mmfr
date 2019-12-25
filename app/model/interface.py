@@ -1,9 +1,7 @@
 from app.model.fund_static import FundData, FundAttributes, FundMgtCo, FundIdentity, ReportingPeriod, FundReport
 from app.config import binding_files_static_fund_data
-from datetime import date
-import datetime
 import json
-from app.model.excel import XLType, MMFType
+from app.model.excel import XLType
 
 
 class Binding():
@@ -22,10 +20,10 @@ class StaticData():
         self.RptgPrd = rp.RptgPrd
 
 
-    def from_dict(self, data):
+    def from_dict(self, data, header):
         static_data = {}
         for key, value in StaticData.binding.items():
-            static_data[key] = XLType(value['type']).clean(data[value['field']])
+            static_data[key] = XLType(value['type']).clean(data[header.index(value['field'])])
 
         static_data['share_classes'] = self.create_share_classes(sc_ccy=static_data['sc_ccy'],
                                   sc_isin=static_data['sc_isin'],
@@ -78,18 +76,14 @@ class StaticData():
             raise Exception('problem with share class mapping, inconsistent number of information')
         return share_classes
 
-
-class PositionData:
-    pass
-
 class Fund:
     def __init__(self, fund_code):
         self.fund_code=fund_code
         self.FndRpt = FundReport()
 
-    def static_data(self, data):
+    def static_data(self, data, header):
         static_fund_data = StaticData()
-        static_fund_data.from_dict(data=data)
+        static_fund_data.from_dict(data=data, header=header)
         self.FndRpt.Upd.RptgYr = static_fund_data.RptgYr
         self.FndRpt.Upd.RptgPrdFrToQrtr = static_fund_data.RptgPrdFrToQrtr
         self.FndRpt.Upd.RptgPrd = static_fund_data.RptgPrd

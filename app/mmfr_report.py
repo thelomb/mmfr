@@ -4,10 +4,13 @@ from app.model.excel import Reader
 from app.model.report import Report
 
 def mmfr(output, static_date_file, position_data_file = None):
-    xl_static_data = Reader()
-    static_data = xl_static_data.parse(static_date_file)
+    static_data = Reader().parse(static_date_file.get('file'), static_date_file.get('sheet') or None)
+    print('static data read')
+    position_data = Reader().parse(position_data_file.get('file'), position_data_file.get('sheet') or None)
+    print('position data read')
     r = Report()
     r.static_data(static_data)
+    r.position_data(position_data)
     r.dynamic_data()
     xsd = XMLSchema('app/data/PLO_MMF_Regulatory_reporting_MoneyMarketFundReportV01_auth_093_001_01.xsd')
     if xsd.is_valid(r.to_xml(output)):
