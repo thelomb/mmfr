@@ -1,5 +1,5 @@
 from app.model.fund_static import FundData, FundAttributes, FundMgtCo, FundIdentity, ReportingPeriod, FundReport
-from app.model.fund_calc import MnyMktInstrmHldg, DerivHldg, ScrtstnAsstBckdComrclPprHldg
+from app.model.fund_calc import MnyMktInstrmHldg, DerivHldg, ScrtstnAsstBckdComrclPprHldg, MnyMktFndHldgInf
 from app.config import binding_files_position_fund_data
 import json
 from app.model.excel import XLType
@@ -15,6 +15,7 @@ class PositionData:
     securitized_type = ['STSA', 'SCRT', 'ABCP', 'STSS']
     money_market_type = ['MMII']
     derivative_type = ['OTCD','RMTD']
+    money_market_fund_type= ['MMFT']
 
     def __init__(self):
         self.details = ''
@@ -53,7 +54,6 @@ class PositionData:
     def securitized(data):
         return ScrtstnAsstBckdComrclPprHldg(asset_type=data['asset_type'],
                                 cfi_iso=data['cfi_iso'],
-                                party_sector_type=data['party_sector_type'],
                                 maturity=data['maturity'],
                                 notional_currency=data['notional_currency'],
                                 quantity=data['quantity'],
@@ -93,6 +93,25 @@ class PositionData:
                          second_leg_currency=data['second_leg_currency'],
                          underlying_name=data['underlying_name'],
                          underlying_isin=data['underlying_isin'])
+
+    @staticmethod
+    def money_market_fund(data):
+        return MnyMktFndHldgInf(asset_type=data['asset_type'],
+                                cfi_iso=data['cfi_iso'],
+                                party_sector_type=data['party_sector_type'],
+                                maturity=data['maturity'],
+                                notional_currency=data['notional_currency'],
+                                quantity=data['quantity'],
+                                asset_ctry_code=data['asset_ctry_code'],
+                                party_lei=data['party_lei'],
+                                party_name=data['party_name'],
+                                instr_name=data['instr_name'],
+                                instr_isin=data['instr_isin'],
+                                base_ccy_price=data['base_ccy_price'],
+                                report_ccy_price=data['report_ccy_price'],
+                                base_ccy_mv=data['base_ccy_mv'],
+                                report_ccy_mv=data['report_ccy_mv'],
+                                asset_lei=data['asset_lei'])
 
 class Position:
     def __init__(self, fund_code, fund_type):

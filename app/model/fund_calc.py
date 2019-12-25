@@ -56,6 +56,22 @@ class Derivatives(pmmfr.AssetIdentification3__2):
             raise
         self.InstrmId = instr
 
+class AssetIdentification3__3(pmmfr.AssetIdentification3__3):
+    def __init__(self, cfi_iso, instr_name=None, instr_isin=None, lei=None):
+        super().__init__()
+        self.ClssfctnTp = pmmfr.CFIOct2015Identifier(cfi_iso)
+        instr = pmmfr.InstrumentIdentification4Choice__1()
+        if instr_name or instr_isin:
+            if instr_isin:
+                instr.ISIN = pmmfr.ISINOct2015Identifier(instr_isin)
+            else:
+                instr.Nm = pmmfr.Max350Text(instr_name)
+        else:
+            raise
+        self.InstrmId = instr
+        self.AsstLEI = pmmfr.LEIIdentifier(lei) or None
+
+
 
 class PartyData(pmmfr.Party46Choice__1):
     def __init__(self, sector, lei=None, name=None):
@@ -99,6 +115,13 @@ class CountryOrSupraNational(pmmfr.Country1Choice__2):
         else:
             self.SprntnlCtry = pmmfr.TrueFalseIndicator_fixed__1(True)
 
+class Country1Choice__2(pmmfr.Country1Choice__2):
+    def __init__(self, code=None):
+        super().__init__()
+        if code:
+            self.Ctry = pmmfr.CountryCode(code)
+        else:
+            self.SprntnlCtry = pmmfr.TrueFalseIndicator_fixed__1(True)
 
 class AssetVal(pmmfr.AssetValuation2__1):
     def __init__(self,
@@ -170,6 +193,23 @@ class AssetValuation2__3(pmmfr.AssetValuation2__3):
         self.CollVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_colat, report_ccy_val=report_ccy_colat)
         self.XpsrVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_exposure, report_ccy_val=report_ccy_exposure)
         self.RstDt = pmmfr.ISODate(reset_date) or None
+
+
+class AssetValuation2__4(pmmfr.AssetValuation2__4):
+    def __init__(self,
+                 maturity,
+                 notional_currency,
+                 quantity,
+                 base_ccy_price=None,
+                 report_ccy_price=None,
+                 base_ccy_mv=None,
+                 report_ccy_mv=None):
+        super().__init__()
+        self.MtrtyDt = pmmfr.ISODate(maturity)
+        self.NtnlCcyFrstLeg = pmmfr.ActiveOrHistoricCurrencyCode(notional_currency)
+        self.Qty = Quantity(value=quantity)
+        self.Pric = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_price, report_ccy_val=report_ccy_price)
+        self.TtlVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_mv, report_ccy_val=report_ccy_mv)
 
 
 class Quantity(pmmfr.FinancialInstrumentQuantity1Choice__1):
@@ -339,7 +379,39 @@ class DerivHldg(pmmfr.Financialinstrument81__3):
                                                        isin=underlying_isin)
 
 class MnyMktFndHldgInf(pmmfr.Financialinstrument81__4):
-    pass
+    def __init__(self,
+                 asset_type,
+                 cfi_iso,
+                 party_sector_type,
+                 maturity,
+                 notional_currency,
+                 quantity,
+                 asset_ctry_code=None,
+                 party_lei=None,
+                 party_name=None,
+                 instr_name=None,
+                 instr_isin=None,
+                 base_ccy_price=None,
+                 report_ccy_price=None,
+                 base_ccy_mv=None,
+                 report_ccy_mv=None,
+                 asset_lei=None):
+        super().__init__()
+        self.AsstTp = pmmfr.FinancialAssetType2Code__4(asset_type)
+        self.AsstId = AssetIdentification3__3(cfi_iso=cfi_iso,
+                                              instr_name=instr_name,
+                                              instr_isin=instr_isin,
+                                              lei=asset_lei)
+        self.PtyData = PartyData(party_sector_type, lei=party_lei, name=party_name)
+        self.AsstCtry = Country1Choice__2(asset_ctry_code)
+        self.AsstValtn = AssetValuation2__4(maturity=maturity,
+                                  notional_currency=notional_currency,
+                                  quantity=quantity,
+                                  base_ccy_price=base_ccy_price,
+                                  report_ccy_price=report_ccy_price,
+                                  base_ccy_mv=base_ccy_mv,
+                                  report_ccy_mv=report_ccy_mv)
+
 
 
 class DpstAncllryLqdAsstHldg(pmmfr.Financialinstrument81__5):

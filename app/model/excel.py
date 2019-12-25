@@ -150,7 +150,8 @@ class AssetType(XLEnum):
         'SimpleTransparentStandardisedSecuritisation': 'STSS',
         'MoneyMarketInstrument': 'MMII',
         'FinancialDerivativeInstrumentOverTheCounter': 'OTCD',
-        'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD'
+        'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD',
+        'UnitOrShareOfOtherMoneyMarketFund': 'MMFT'
     }
 
 class ContractType(XLEnum):
