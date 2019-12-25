@@ -151,7 +151,9 @@ class AssetType(XLEnum):
         'MoneyMarketInstrument': 'MMII',
         'FinancialDerivativeInstrumentOverTheCounter': 'OTCD',
         'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD',
-        'UnitOrShareOfOtherMoneyMarketFund': 'MMFT'
+        'UnitOrShareOfOtherMoneyMarketFund': 'MMFT',
+        'DepositsWithCreditInstitution': 'DPSC',
+        'AncillaryLiquidAsset': 'ANLA'
     }
 
 class ContractType(XLEnum):

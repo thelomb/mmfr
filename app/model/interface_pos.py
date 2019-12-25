@@ -1,5 +1,9 @@
 from app.model.fund_static import FundData, FundAttributes, FundMgtCo, FundIdentity, ReportingPeriod, FundReport
-from app.model.fund_calc import MnyMktInstrmHldg, DerivHldg, ScrtstnAsstBckdComrclPprHldg, MnyMktFndHldgInf
+from app.model.fund_calc import MnyMktInstrmHldg, \
+    DerivHldg, \
+    ScrtstnAsstBckdComrclPprHldg, \
+    MnyMktFndHldgInf, \
+    DpstAncllryLqdAsstHldg
 from app.config import binding_files_position_fund_data
 import json
 from app.model.excel import XLType
@@ -16,6 +20,7 @@ class PositionData:
     money_market_type = ['MMII']
     derivative_type = ['OTCD','RMTD']
     money_market_fund_type= ['MMFT']
+    deposit_type = ['DPSC', 'ANLA']
 
     def __init__(self):
         self.details = ''
@@ -112,6 +117,18 @@ class PositionData:
                                 base_ccy_mv=data['base_ccy_mv'],
                                 report_ccy_mv=data['report_ccy_mv'],
                                 asset_lei=data['asset_lei'])
+
+    @staticmethod
+    def deposit(data):
+        return DpstAncllryLqdAsstHldg(asset_type=data['asset_type'],
+                                      maturity=data['maturity'],
+                                      notional_currency=data['notional_currency'],
+                                      asset_ctry_code=data['asset_ctry_code'],
+                                      party_lei=data['party_lei'],
+                                      party_name=data['party_name'],
+                                      instr_name=data['instr_name'],
+                                      base_ccy_exposure=data['base_ccy_exposure'],
+                                      report_ccy_exposure=data['report_ccy_exposure'])
 
 class Position:
     def __init__(self, fund_code, fund_type):

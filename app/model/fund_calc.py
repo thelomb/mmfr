@@ -71,6 +71,12 @@ class AssetIdentification3__3(pmmfr.AssetIdentification3__3):
         self.InstrmId = instr
         self.AsstLEI = pmmfr.LEIIdentifier(lei) or None
 
+class AssetIdentification3__4(pmmfr.AssetIdentification3__4):
+    def __init__(self, instr_name):
+        super().__init__()
+        instr = pmmfr.InstrumentIdentification4Choice__3()
+        instr.Nm = pmmfr.Max350Text(instr_name)
+        self.InstrmId = instr
 
 
 class PartyData(pmmfr.Party46Choice__1):
@@ -108,14 +114,6 @@ class PartyIdentification(pmmfr.PartyIdentification212__4):
         self.LEI = pmmfr.LEIIdentifier(lei) if lei else None
 
 class CountryOrSupraNational(pmmfr.Country1Choice__2):
-    def __init__(self, code=None):
-        super().__init__()
-        if code:
-            self.Ctry = pmmfr.CountryCode(code)
-        else:
-            self.SprntnlCtry = pmmfr.TrueFalseIndicator_fixed__1(True)
-
-class Country1Choice__2(pmmfr.Country1Choice__2):
     def __init__(self, code=None):
         super().__init__()
         if code:
@@ -210,6 +208,17 @@ class AssetValuation2__4(pmmfr.AssetValuation2__4):
         self.Qty = Quantity(value=quantity)
         self.Pric = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_price, report_ccy_val=report_ccy_price)
         self.TtlVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_mv, report_ccy_val=report_ccy_mv)
+
+class AssetValuation2__5(pmmfr.AssetValuation2__5):
+    def __init__(self,
+                 maturity,
+                 notional_currency,
+                 base_ccy_exposure=None,
+                 report_ccy_exposure=None):
+        super().__init__()
+        self.MtrtyDt = pmmfr.ISODate(maturity)
+        self.NtnlCcyFrstLeg = pmmfr.ActiveOrHistoricCurrencyCode(notional_currency)
+        self.XpsrVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_exposure, report_ccy_val=report_ccy_exposure)
 
 
 class Quantity(pmmfr.FinancialInstrumentQuantity1Choice__1):
@@ -403,7 +412,7 @@ class MnyMktFndHldgInf(pmmfr.Financialinstrument81__4):
                                               instr_isin=instr_isin,
                                               lei=asset_lei)
         self.PtyData = PartyData(party_sector_type, lei=party_lei, name=party_name)
-        self.AsstCtry = Country1Choice__2(asset_ctry_code)
+        self.AsstCtry = CountryOrSupraNational(asset_ctry_code)
         self.AsstValtn = AssetValuation2__4(maturity=maturity,
                                   notional_currency=notional_currency,
                                   quantity=quantity,
@@ -415,7 +424,26 @@ class MnyMktFndHldgInf(pmmfr.Financialinstrument81__4):
 
 
 class DpstAncllryLqdAsstHldg(pmmfr.Financialinstrument81__5):
-    pass
+    def __init__(self,
+                 asset_type,
+                 maturity,
+                 notional_currency,
+                 instr_name,
+                 asset_ctry_code=None,
+                 party_lei=None,
+                 party_name=None,
+                 base_ccy_exposure=None,
+                 report_ccy_exposure=None):
+        super().__init__()
+        self.AsstTp = pmmfr.FinancialAssetType2Code__5(asset_type)
+        self.AsstId = AssetIdentification3__4(instr_name=instr_name)
+        self.PtyData = Party46Choice__3(lei=party_lei, name=party_name)
+        self.AsstCtry = CountryOrSupraNational(asset_ctry_code)
+        self.AsstValtn = AssetValuation2__5(maturity=maturity,
+                                  notional_currency=notional_currency,
+                                  base_ccy_exposure=base_ccy_exposure,
+                                  report_ccy_exposure=report_ccy_exposure)
+
 
 
 class RpAgrmtHldg(pmmfr.Financialinstrument81__6):
