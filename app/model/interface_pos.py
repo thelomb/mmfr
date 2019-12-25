@@ -1,5 +1,5 @@
 from app.model.fund_static import FundData, FundAttributes, FundMgtCo, FundIdentity, ReportingPeriod, FundReport
-from app.model.fund_calc import MnyMktInstrmHldg
+from app.model.fund_calc import MnyMktInstrmHldg, DerivHldg, ScrtstnAsstBckdComrclPprHldg
 from app.config import binding_files_position_fund_data
 import json
 from app.model.excel import XLType
@@ -70,6 +70,29 @@ class PositionData:
                                 report_ccy_ai=data['report_ccy_ai'],
                                 base_ccy_mv=data['base_ccy_mv'],
                                 report_ccy_mv=data['report_ccy_mv'])
+
+    @staticmethod
+    def derivatives(data):
+        return DerivHldg(asset_type=data['asset_type'],
+                         cfi_iso=data['cfi_iso'],
+                         maturity=data['maturity'],
+                         notional_currency=data['notional_currency'],
+                         asset_ctry_code=data['asset_ctry_code'],
+                         party_lei =data['party_lei'],
+                         party_name=data['party_name'],
+                         instr_name=data['instr_name'],
+                         instr_isin=data['instr_isin'],
+                         base_ccy_colat=data['base_ccy_colat'],
+                         report_ccy_colat=data['report_ccy_colat'],
+                         base_ccy_exposure=data['base_ccy_exposure'],
+                         report_ccy_exposure=data['report_ccy_exposure'],
+                         base_ccy_mv=data['base_ccy_mv'],
+                         report_ccy_mv=data['report_ccy_mv'],
+                         reset_date=data['reset_date'],
+                         unique_instr_id=data['unique_instr_id'],
+                         second_leg_currency=data['second_leg_currency'],
+                         underlying_name=data['underlying_name'],
+                         underlying_isin=data['underlying_isin'])
 
 class Position:
     def __init__(self, fund_code, fund_type):

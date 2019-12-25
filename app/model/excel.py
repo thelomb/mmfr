@@ -152,3 +152,26 @@ class AssetType(XLEnum):
         'FinancialDerivativeInstrumentOverTheCounter': 'OTCD',
         'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD'
     }
+
+class ContractType(XLEnum):
+    mapping = {
+        'ContractForDifference':'CFDS',
+        'ForwardRateAgreement': 'FRAS',
+        'Futures':'FUTR',
+        'Forward': 'FORW',
+        'Option': 'OPTN',
+        'Swap': 'SWAP',
+        'Swaption': 'SWPT',
+        'Other': 'OTHR',
+        'ForwardsOnASwap': 'FWOS',
+        'FuturesOnSwap': 'FONS'
+    }
+
+class UnderlyingType(XLEnum):
+    mapping = {
+        'Currency': 'CURR',
+        'IndexOfCurrencies': 'CIDX',
+        'IndexOfInterestRates': 'IIDX',
+        'Interest': 'INTR',
+        'InterestRateAndCurrency': 'INCU'
+    }

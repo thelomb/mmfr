@@ -199,6 +199,21 @@ class AmountAndCcy(pmmfr.ActiveCurrencyAndAmount__1, pmmfr.ActiveCurrencyAndAmou
         super().__init__()
         self.Ccy = pmmfr.ActiveCurrencyCode_fixed('EUR')
 
+class SecurityIdentification31Choice(pmmfr.SecurityIdentification31Choice):
+    def __init__(self, name=None, isin=None):
+        super().__init__()
+        if isin:
+            self.ISIN = pmmfr.ISINOct2015Identifier(isin)
+        else:
+            self.Nm = pmmfr.Max35Text(name)
+
+class DerivativeAttributes(pmmfr.DerivativeInstrument8):
+    def __init__(self, contract_type, underlying_type, name=None, isin=None):
+        super().__init__()
+        self.CtrctTp = pmmfr.FinancialInstrumentContractType3Code(contract_type)
+        self.UndrlygTp = pmmfr.UnderlyingDerivativeType2Code(underlying_type)
+        self.UndrlygId = SecurityIdentification31Choice(name=name, isin=isin)
+
 class MnyMktInstrmHldg(pmmfr.Financialinstrument81__1):
     def __init__(self,
                  asset_type,
@@ -282,26 +297,24 @@ class DerivHldg(pmmfr.Financialinstrument81__3):
     def __init__(self,
                  asset_type,
                  cfi_iso,
-                 party_sector_type,
                  maturity,
                  notional_currency,
-                 quantity,
-                 val_type,
-                 credit_assessment,
                  asset_ctry_code=None,
                  party_lei=None,
                  party_name=None,
                  instr_name=None,
                  instr_isin=None,
-                 base_ccy_price=None,
-                 report_ccy_price=None,
-                 base_ccy_ai=None,
-                 report_ccy_ai=None,
+                 base_ccy_colat=None,
+                 report_ccy_colat=None,
+                 base_ccy_exposure=None,
+                 report_ccy_exposure=None,
                  base_ccy_mv=None,
                  report_ccy_mv=None,
                  reset_date=None,
                  unique_instr_id=None,
-                 second_leg_currency=None):
+                 second_leg_currency=None,
+                 underlying_name=None,
+                 underlying_isin=None):
         super().__init__()
         self.AsstTp = pmmfr.FinancialAssetType2Code__3(asset_type)
         self.AsstId = Derivatives(cfi_iso=cfi_iso,
@@ -311,18 +324,19 @@ class DerivHldg(pmmfr.Financialinstrument81__3):
         self.PtyData = Party46Choice__3(lei=party_lei, name=party_name)
         self.AsstCtry = CountryOrSupraNational(asset_ctry_code)
         self.AsstValtn = AssetValuation2__3(maturity=maturity,
-                                  notional_currency=notional_currency,
-                                  quantity=quantity,
-                                  val_type=val_type,
-                                  credit_assessment=credit_assessment,
-                                  base_ccy_price=base_ccy_price,
-                                  report_ccy_price=report_ccy_price,
-                                  base_ccy_ai=base_ccy_ai,
-                                  report_ccy_ai=report_ccy_ai,
-                                  base_ccy_mv=base_ccy_mv,
-                                  report_ccy_mv=report_ccy_mv,
-                                  reset_date=reset_date,
-                                  second_leg_currency=second_leg_currency)
+                                            notional_currency=notional_currency,
+                                            base_ccy_colat=base_ccy_colat,
+                                            report_ccy_colat=report_ccy_colat,
+                                            base_ccy_exposure=base_ccy_exposure,
+                                            report_ccy_exposure=report_ccy_exposure,
+                                            base_ccy_mv=base_ccy_mv,
+                                            report_ccy_mv=report_ccy_mv,
+                                            reset_date=reset_date,
+                                            second_leg_currency=second_leg_currency)
+        self.DerivInstrmAttrbts = DerivativeAttributes(contract_type=contract_type,
+                                                       underlying_type=underlying_type,
+                                                       name=underlying_name,
+                                                       isin=underlying_isin)
 
 class MnyMktFndHldgInf(pmmfr.Financialinstrument81__4):
     pass
