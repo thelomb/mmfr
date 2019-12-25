@@ -1,5 +1,6 @@
-from openpyxl import Workbook, load_workbook
+from openpyxl import load_workbook
 import sys
+
 
 class Reader():
     def __init__(self):
@@ -28,12 +29,14 @@ class Reader():
         print(self.range)
         return (self.header, self.range)
 
+
 class XLType():
     def __init__(self, cls):
         self.cls = cls
 
     def clean(self, v):
         return getattr(sys.modules[__name__], self.cls)().clean(v)
+
 
 class XLString():
     @staticmethod
@@ -42,6 +45,7 @@ class XLString():
             return str(v).strip()
         return v
 
+
 class XLDate():
     @staticmethod
     def clean(v):
@@ -49,13 +53,16 @@ class XLDate():
             return v.date().isoformat()
         return v
 
+
 class XLBool:
     @staticmethod
     def clean(v):
         return v in ['Yes', 'YES']
 
+
 class XLEnum:
     mapping = {}
+
     @classmethod
     def clean(cls, value):
         if isinstance(value, str):
@@ -64,49 +71,54 @@ class XLEnum:
             return cls.mapping[value.lower()]
         return value
 
+
 class MMFMasterFeedType(XLEnum):
-    mapping = { 'fder': 'FDER',
-                'mstr': 'MSTR',
-                'none': 'NONE',
-                'feeder': 'FDER',
-                'master': 'MSTR'
-    }
+    mapping = {'fder': 'FDER',
+               'mstr': 'MSTR',
+               'none': 'NONE',
+               'feeder': 'FDER',
+               'master': 'MSTR'
+               }
+
 
 class MMFType(XLEnum):
-    mapping = { 'shorttermlvnavmoneymarketfund': 'STLV',
-                'shorttermpublicdebtcnavmoneymarketfund': 'STCN',
-                'shorttermvnavmoneymarketfund': 'STVN',
-                'standardvnavmoneymarketfund': 'SDVN',
-                'ShortTermLVNAVMoneyMarketFund': 'STLV',
-                'ShortTermPublicDebtCNAVMoneyMarketFund': 'STCN',
-                'ShortTermVNAVMoneyMarketFund': 'STVN',
-                'StandardVNAVMoneyMarketFund': 'SDVN',
-                'shorttermlvnavmmf': 'STLV',
-                'shorttermpublicdebtcnavmmf': 'STCN',
-                'shorttermvnavmmf': 'STVN',
-                'standardvnavmmf': 'SDVN'
-    }
+    mapping = {'shorttermlvnavmoneymarketfund': 'STLV',
+               'shorttermpublicdebtcnavmoneymarketfund': 'STCN',
+               'shorttermvnavmoneymarketfund': 'STVN',
+               'standardvnavmoneymarketfund': 'SDVN',
+               'ShortTermLVNAVMoneyMarketFund': 'STLV',
+               'ShortTermPublicDebtCNAVMoneyMarketFund': 'STCN',
+               'ShortTermVNAVMoneyMarketFund': 'STVN',
+               'StandardVNAVMoneyMarketFund': 'SDVN',
+               'shorttermlvnavmmf': 'STLV',
+               'shorttermpublicdebtcnavmmf': 'STCN',
+               'shorttermvnavmmf': 'STVN',
+               'standardvnavmmf': 'SDVN'
+               }
 
 
 class MMFLegalFramework(XLEnum):
-    mapping = { 'UCITS': 'UCIT',
-                'AIFD': 'AIFD',
-                'UCIT': 'UCIT',
-                'ucit': 'UCIT',
-                'aifd': 'AIFD',
-                'UndertakingsForCollectiveInvestmentInTransferableSecurities': 'UCIT',
-                'AlternativeInvestmentFund': 'AIFD'
-    }
+    mapping = {'UCITS': 'UCIT',
+               'AIFD': 'AIFD',
+               'UCIT': 'UCIT',
+               'ucit': 'UCIT',
+               'aifd': 'AIFD',
+               'UndertakingsForCollectiveInvestmentInTransferableSecurities': 'UCIT',
+               'AlternativeInvestmentFund': 'AIFD'
+               }
+
 
 class XLList:
     @staticmethod
     def clean(v):
         return v.split(';')
 
+
 class XLNumeric:
     @staticmethod
     def clean(v):
         return v
+
 
 class PositionPartySectory(XLEnum):
     mapping = {
@@ -114,21 +126,21 @@ class PositionPartySectory(XLEnum):
         'SubjectToRegulationSovereign': 'SRSB',
         'SubjectToRegulationPublicBody': 'SRPB',
         'SubjectToRegulationCentralBank': 'SRCB',
-        'Regional':'RGNL',
+        'Regional': 'RGNL',
         'OtherFinancialCorporation': 'OFCP',
-        'NotSubjectToRegulationSupranationalPublicBody':'NRSN',
+        'NotSubjectToRegulationSupranationalPublicBody': 'NRSN',
         'NotSubjectToRegulationSovereign': 'NRSB',
-        'NotSubjectToRegulationPublicBody':'NRPB',
+        'NotSubjectToRegulationPublicBody': 'NRPB',
         'NotSubjectToRegulationCentralBank': 'NRCB',
-        'NonFinancialCorporation':'NFIN',
+        'NonFinancialCorporation': 'NFIN',
         'NationalPublicBody': 'NTPB',
-        'Local':'LOCA',
+        'Local': 'LOCA',
         'CreditInstitution': 'CDTI'
     }
 
 
 class ValuationType(XLEnum):
-    mapping = {'MarkToModel':'MTMO',
+    mapping = {'MarkToModel': 'MTMO',
                'MarkToMarket': 'MTMA',
                'AmortisedCost': 'AMCS'
                }
@@ -137,30 +149,34 @@ class ValuationType(XLEnum):
 class AssessmentResultType(XLEnum):
     mapping = {
         'Favourable': 'FVRB',
-        'NotApplicable':'NOAP',
+        'NotApplicable': 'NOAP',
         'Unfavourable': 'UFVB',
         'NotPerformed': 'NOVF'
     }
+
 
 class AssetType(XLEnum):
     mapping = {
         'SimpleTransparentStandardisedAssetBackedCommercialPaper': 'STSA',
         'Securitisation': 'SCRT',
-        'AssetBackedCommercialPaper':  'ABCP',
+        'AssetBackedCommercialPaper': 'ABCP',
         'SimpleTransparentStandardisedSecuritisation': 'STSS',
         'MoneyMarketInstrument': 'MMII',
         'FinancialDerivativeInstrumentOverTheCounter': 'OTCD',
         'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD',
         'UnitOrShareOfOtherMoneyMarketFund': 'MMFT',
         'DepositsWithCreditInstitution': 'DPSC',
-        'AncillaryLiquidAsset': 'ANLA'
+        'AncillaryLiquidAsset': 'ANLA',
+        'ReverseRepurchaseAgreement': 'RVPO',
+        'RepurchaseAgreement': 'REPO'
     }
+
 
 class ContractType(XLEnum):
     mapping = {
-        'ContractForDifference':'CFDS',
+        'ContractForDifference': 'CFDS',
         'ForwardRateAgreement': 'FRAS',
-        'Futures':'FUTR',
+        'Futures': 'FUTR',
         'Forward': 'FORW',
         'Option': 'OPTN',
         'Swap': 'SWAP',
@@ -169,6 +185,7 @@ class ContractType(XLEnum):
         'ForwardsOnASwap': 'FWOS',
         'FuturesOnSwap': 'FONS'
     }
+
 
 class UnderlyingType(XLEnum):
     mapping = {
