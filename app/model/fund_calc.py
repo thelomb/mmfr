@@ -1,16 +1,6 @@
 from app.model import pmmfr
 
 
-class QttvData(pmmfr.QuantitativeData4__1):
-    def __init__(self):
-        super().__init__()
-
-
-class PrtflPrfrmnc(pmmfr.PerformanceFactors2__1):
-    def __init__(self):
-        super().__init__()
-
-
 class StrssTst(pmmfr.StressTestReport1__1):
     def __init__(self):
         super().__init__()
@@ -76,7 +66,7 @@ class AssetIdentification3__3(pmmfr.AssetIdentification3__3):
         else:
             raise
         self.InstrmId = instr
-        self.AsstLEI = pmmfr.LEIIdentifier(lei) or None
+        self.AsstLEI = pmmfr.LEIIdentifier(lei) if lei else None
 
 
 class AssetIdentification3__4(pmmfr.AssetIdentification3__4):
@@ -162,7 +152,7 @@ class AssetVal(pmmfr.AssetValuation2__1):
         self.AcrdIntrst = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_ai, report_ccy_val=report_ccy_ai)
         self.TtlVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_mv, report_ccy_val=report_ccy_mv)
         self.ValtnTp = pmmfr.ValuationType2Code(val_type)
-        self.RstDt = pmmfr.ISODate(reset_date) or None
+        self.RstDt = pmmfr.ISODate(reset_date) if reset_date else None
         self.CdtAssmntRslt = pmmfr.AssessmentResultType2Code(credit_assessment)
 
 
@@ -195,8 +185,8 @@ class AssetValuation2__3(pmmfr.AssetValuation2__3):
     def __init__(self,
                  maturity,
                  notional_currency,
-                 base_ccy_colat=None,
-                 report_ccy_colat=None,
+                 base_ccy_collat=None,
+                 report_ccy_collat=None,
                  base_ccy_exposure=None,
                  report_ccy_exposure=None,
                  base_ccy_mv=None,
@@ -208,7 +198,7 @@ class AssetValuation2__3(pmmfr.AssetValuation2__3):
         self.NtnlCcyFrstLeg = pmmfr.ActiveOrHistoricCurrencyCode(notional_currency)
         self.NtnlCcyScndLeg = pmmfr.ActiveOrHistoricCurrencyCode(second_leg_currency) or None
         self.TtlVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_mv, report_ccy_val=report_ccy_mv)
-        self.CollVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_colat, report_ccy_val=report_ccy_colat)
+        self.CollVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_collat, report_ccy_val=report_ccy_collat)
         self.XpsrVal = ValueInBaseCcyOrReportCcy(base_ccy_val=base_ccy_exposure, report_ccy_val=report_ccy_exposure)
         self.RstDt = pmmfr.ISODate(reset_date) or None
 
@@ -279,13 +269,15 @@ class Amount(pmmfr.CurrencyExchange14__1):
         super().__init__()
         self.BaseCcyAmt = pmmfr.ImpliedCurrencyAndAmount(base_ccy_val)
         if report_ccy_val:
-            self.RptgCcyAmt = AmountAndCcy().from_float(report_ccy_val)
+            print('report ccy val', report_ccy_val)
+            amt = pmmfr.ActiveCurrencyAndAmount__1(report_ccy_val)
+            amt.Ccy = pmmfr.ActiveCurrencyCode_fixed('EUR')
+            self.RptgCcyAmt = amt
 
 
 class AmountAndCcy(pmmfr.ActiveCurrencyAndAmount__1, pmmfr.ActiveCurrencyAndAmount__1_SimpleType):
     def __init__(self):
         super().__init__()
-        self.Ccy = pmmfr.ActiveCurrencyCode_fixed('EUR')
 
 
 class SecurityIdentification31Choice(pmmfr.SecurityIdentification31Choice):
@@ -397,8 +389,8 @@ class DerivHldg(pmmfr.Financialinstrument81__3):
                  party_name=None,
                  instr_name=None,
                  instr_isin=None,
-                 base_ccy_colat=None,
-                 report_ccy_colat=None,
+                 base_ccy_collat=None,
+                 report_ccy_collat=None,
                  base_ccy_exposure=None,
                  report_ccy_exposure=None,
                  base_ccy_mv=None,
@@ -418,8 +410,8 @@ class DerivHldg(pmmfr.Financialinstrument81__3):
         self.AsstCtry = CountryOrSupraNational(asset_ctry_code)
         self.AsstValtn = AssetValuation2__3(maturity=maturity,
                                             notional_currency=notional_currency,
-                                            base_ccy_colat=base_ccy_colat,
-                                            report_ccy_colat=report_ccy_colat,
+                                            base_ccy_collat=base_ccy_collat,
+                                            report_ccy_collat=report_ccy_collat,
                                             base_ccy_exposure=base_ccy_exposure,
                                             report_ccy_exposure=report_ccy_exposure,
                                             base_ccy_mv=base_ccy_mv,
@@ -524,12 +516,157 @@ class RvsRpAgrmtCollData(pmmfr.FinancialInstrument80__1):
     def __init__(self,
                  collat_instr_list,
                  derogated_asset=False,
-                 base_ccy_val=None,
-                 report_ccy_val=None):
+                 base_ccy_collat=None,
+                 report_ccy_collat=None):
         super().__init__()
         for instr in collat_instr_list:
             isin = pmmfr.InstrumentIdentification3Choice__1()
             isin.ISIN = instr
             self.FinInstrmId.append(isin)
         self.DrgtnRcvdAssts = pmmfr.TrueFalseIndicator(derogated_asset)
-        self.TtlVal = Amount(base_ccy_val=base_ccy_val, report_ccy_val=report_ccy_val)
+        self.TtlVal = Amount(base_ccy_val=base_ccy_collat, report_ccy_val=report_ccy_collat)
+
+
+class PrfrmncVal(pmmfr.PerformanceValueType1Choice__1):
+    def __init__(self, perf=None):
+        super().__init__()
+        if perf:
+            self.Rate = pmmfr.PercentageBoundedRate(perf)
+        else:
+            self.NotAvlblVal = pmmfr.NotAvailable1Code('NTAV')
+
+
+class PrtflLqdtyBrkdwn(pmmfr.RangeBreakdown1__1):
+    def __init__(self, range_type, perf=None):
+        super().__init__()
+        self.RgTp = pmmfr.RangeType1Code__1(range_type)
+        self.PrfrmncVal = PrfrmncVal(perf)
+
+
+class FndValtn(pmmfr.FundValuation1__1):
+    def __init__(self, weighted_avg_maturity, weighted_avg_life, base_ccy_nav=None, report_ccy_nav=None):
+        super().__init__()
+        self.NetAsstValPerUnit = Amount(base_ccy_val=base_ccy_nav, report_ccy_val=report_ccy_nav)
+        self.WghtdAvrgLife = pmmfr.DecimalNumber(weighted_avg_life)
+        self.WghtdAvrgMtrty = pmmfr.DecimalNumber(weighted_avg_maturity)
+
+
+class LqdtyInf(pmmfr.FundLiquidity1__1):
+    def __init__(self, daily_maturing_asset_pct, weekly_maturing_asset_pct, ls1d_liquid=None, d2t7_liquid=None,
+                 d829_liquid=None, a30d_liquid=None):
+        super().__init__()
+        self.DalyMtrgAsstRate = pmmfr.PercentageBoundedRate(daily_maturing_asset_pct)
+        self.WklyMtrgAsstRate = pmmfr.PercentageBoundedRate(weekly_maturing_asset_pct)
+        self.PrtflLqdtyBrkdwn.append(PrtflLqdtyBrkdwn(range_type='LS1D', perf=ls1d_liquid))
+        self.PrtflLqdtyBrkdwn.append(PrtflLqdtyBrkdwn(range_type='D2T7', perf=d2t7_liquid))
+        self.PrtflLqdtyBrkdwn.append(PrtflLqdtyBrkdwn(range_type='D829', perf=d829_liquid))
+        self.PrtflLqdtyBrkdwn.append(PrtflLqdtyBrkdwn(range_type='A30D', perf=a30d_liquid))
+
+
+class CmltvRtrsBrkdwn(pmmfr.RangeBreakdown1__2):
+    def __init__(self, range_type, perf=None):
+        super().__init__()
+        self.RgTp = pmmfr.RangeType1Code__2(range_type)
+        self.PrfrmncVal = PrfrmncVal(perf)
+
+
+class StdPrtflVoltlyBrkdwn(pmmfr.RangeBreakdown1__3):
+    def __init__(self, range_type, perf=None):
+        super().__init__()
+        self.RgTp = pmmfr.RangeType1Code__3(range_type)
+        self.PrfrmncVal = PrfrmncVal(perf)
+
+
+class CalYrPrfrmncBrkdwn(pmmfr.RangeBreakdown1__4):
+    def __init__(self, range_type, perf=None):
+        super().__init__()
+        self.RgTp = pmmfr.RangeType1Code__4(range_type)
+        self.PrfrmncVal = PrfrmncVal(perf)
+
+
+class Yld(pmmfr.Yield1__1):
+    def __init__(self,
+                 lt3m_perf=None,
+                 lt1m_perf=None,
+                 lt1y_perf=None,
+                 lt3y_perf=None,
+                 lt5y_perf=None,
+                 cytd_perf=None,
+                 lt1y_vol=None,
+                 lt2y_vol=None,
+                 lt3y_vol=None,
+                 lt1y_shadow_vol=None,
+                 lt2y_shadow_vol=None,
+                 lt3y_shadow_vol=None,
+                 yms2_perf=None,
+                 ymn3_perf=None,
+                 yms1_perf=None):
+        super().__init__()
+        self.CmltvRtrsBrkdwn.append(CmltvRtrsBrkdwn(range_type='LT3M', perf=lt3m_perf))
+        self.CmltvRtrsBrkdwn.append(CmltvRtrsBrkdwn(range_type='LT1M', perf=lt1m_perf))
+        self.CmltvRtrsBrkdwn.append(CmltvRtrsBrkdwn(range_type='LT1Y', perf=lt1y_perf))
+        self.CmltvRtrsBrkdwn.append(CmltvRtrsBrkdwn(range_type='LT3Y', perf=lt3y_perf))
+        self.CmltvRtrsBrkdwn.append(CmltvRtrsBrkdwn(range_type='LT5Y', perf=lt5y_perf))
+        self.CmltvRtrsBrkdwn.append(CmltvRtrsBrkdwn(range_type='CYTD', perf=cytd_perf))
+        self.StdPrtflVoltlyBrkdwn.append(StdPrtflVoltlyBrkdwn(range_type='LT1Y', perf=lt1y_vol))
+        self.StdPrtflVoltlyBrkdwn.append(StdPrtflVoltlyBrkdwn(range_type='LT2Y', perf=lt2y_vol))
+        self.StdPrtflVoltlyBrkdwn.append(StdPrtflVoltlyBrkdwn(range_type='LT3Y', perf=lt3y_vol))
+        if lt1y_shadow_vol:
+            self.ShdwPrtflVoltlyBrkdwn.append(StdPrtflVoltlyBrkdwn(range_type='LT1Y', perf=lt1y_shadow_vol))
+        if lt2y_shadow_vol:
+            self.ShdwPrtflVoltlyBrkdwn.append(StdPrtflVoltlyBrkdwn(range_type='LT2Y', perf=lt2y_shadow_vol))
+        if lt3y_shadow_vol:
+            self.ShdwPrtflVoltlyBrkdwn.append(StdPrtflVoltlyBrkdwn(range_type='LT3Y', perf=lt3y_shadow_vol))
+
+        self.CalYrPrfrmncBrkdwn.append(CalYrPrfrmncBrkdwn(range_type='YMS2', perf=yms2_perf))
+        self.CalYrPrfrmncBrkdwn.append(CalYrPrfrmncBrkdwn(range_type='YMN3', perf=ymn3_perf))
+        self.CalYrPrfrmncBrkdwn.append(CalYrPrfrmncBrkdwn(range_type='YMS1', perf=yms1_perf))
+
+
+class PrtflPrfrmnc(pmmfr.PerformanceFactors2__1):
+    def __init__(self,
+                 weighted_avg_maturity,
+                 weighted_avg_life,
+                 daily_maturing_asset_pct,
+                 weekly_maturing_asset_pct,
+                 ls1d_liquid=None,
+                 d2t7_liquid=None,
+                 d829_liquid=None,
+                 a30d_liquid=None,
+                 base_ccy_nav=None,
+                 report_ccy_nav=None,
+                 lt3m_perf=None,
+                 lt1m_perf=None,
+                 lt1y_perf=None,
+                 lt3y_perf=None,
+                 lt5y_perf=None,
+                 cytd_perf=None,
+                 lt1y_vol=None,
+                 lt2y_vol=None,
+                 lt3y_vol=None,
+                 lt1y_shadow_vol=None,
+                 lt2y_shadow_vol=None,
+                 lt3y_shadow_vol=None,
+                 yms2_perf=None,
+                 ymn3_perf=None,
+                 yms1_perf=None):
+        super().__init__()
+        self.FndValtn = FndValtn(weighted_avg_maturity, weighted_avg_life, base_ccy_nav, report_ccy_nav)
+        self.LqdtyInf = LqdtyInf(daily_maturing_asset_pct, weekly_maturing_asset_pct, ls1d_liquid, d2t7_liquid,
+                                 d829_liquid, a30d_liquid)
+        self.Yld = Yld(lt3m_perf,
+                       lt1m_perf,
+                       lt1y_perf,
+                       lt3y_perf,
+                       lt5y_perf,
+                       cytd_perf,
+                       lt1y_vol,
+                       lt2y_vol,
+                       lt3y_vol,
+                       lt1y_shadow_vol,
+                       lt2y_shadow_vol,
+                       lt3y_shadow_vol,
+                       yms2_perf,
+                       ymn3_perf,
+                       yms1_perf)
+

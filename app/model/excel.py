@@ -25,8 +25,6 @@ class Reader():
         for row in sheet.iter_rows(min_row=2, values_only=True):
             self.range.append(list(row))
 
-        print(self.header)
-        print(self.range)
         return (self.header, self.range)
 
 
@@ -62,6 +60,7 @@ class XLBool:
 
 class XLEnum:
     mapping = {}
+    default = None
 
     @classmethod
     def clean(cls, value):
@@ -69,6 +68,8 @@ class XLEnum:
             space = str.maketrans(dict.fromkeys(' '))
             value = value.translate(space)
             return cls.mapping[value.lower()]
+        if cls.default:
+            return cls.default
         return value
 
 
@@ -117,10 +118,13 @@ class XLList:
 class XLNumeric:
     @staticmethod
     def clean(v):
-        return v
+        if isinstance(v, float):
+            return max(0, round(v, 5))
+        else:
+            return v
 
 
-class PositionPartySectory(XLEnum):
+class PositionPartySector(XLEnum):
     mapping = {
         'SubjectToRegulationSupranationalPublicBody': 'SRSN',
         'SubjectToRegulationSovereign': 'SRSB',
@@ -137,11 +141,14 @@ class PositionPartySectory(XLEnum):
         'Local': 'LOCA',
         'CreditInstitution': 'CDTI'
     }
+    default = 'OFCP'
 
 
 class ValuationType(XLEnum):
     mapping = {'MarkToModel': 'MTMO',
+               'marktomodel': 'MTMO',
                'MarkToMarket': 'MTMA',
+               'marktomarket': 'MTMA',
                'AmortisedCost': 'AMCS'
                }
 
@@ -153,6 +160,7 @@ class AssessmentResultType(XLEnum):
         'Unfavourable': 'UFVB',
         'NotPerformed': 'NOVF'
     }
+    default = 'NOVF'
 
 
 class AssetType(XLEnum):
@@ -160,13 +168,18 @@ class AssetType(XLEnum):
         'SimpleTransparentStandardisedAssetBackedCommercialPaper': 'STSA',
         'Securitisation': 'SCRT',
         'AssetBackedCommercialPaper': 'ABCP',
+        'assetbackedcommercialpaper': 'ABCP',
         'SimpleTransparentStandardisedSecuritisation': 'STSS',
         'MoneyMarketInstrument': 'MMII',
+        'moneymarketinstrument': 'MMII',
         'FinancialDerivativeInstrumentOverTheCounter': 'OTCD',
         'FinancialDerivativeInstrumentRegulatedMarket': 'RMTD',
         'UnitOrShareOfOtherMoneyMarketFund': 'MMFT',
+        'unitorshareofothermoneymarketfund': 'MMFT',
         'DepositsWithCreditInstitution': 'DPSC',
+        'depositswithcreditinstitution': 'DPSC',
         'AncillaryLiquidAsset': 'ANLA',
+        'ancillaryliquidasset': 'ANLA',
         'ReverseRepurchaseAgreement': 'RVPO',
         'RepurchaseAgreement': 'REPO'
     }
@@ -195,3 +208,12 @@ class UnderlyingType(XLEnum):
         'Interest': 'INTR',
         'InterestRateAndCurrency': 'INCU'
     }
+
+class PerformanceRange(XLEnum):
+    mapping = {
+        'twotosevendays': 'D2T7',
+        'eighttotwentyninedays': 'D829',
+        'lessoneday': 'LS1D',
+        'abovethirtydays': 'A30D'
+
+               }

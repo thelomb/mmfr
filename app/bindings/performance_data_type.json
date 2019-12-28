@@ -1,0 +1,29 @@
+{
+  "attributes": {
+    "weighted_avg_maturity": {"field": "weighted_avg_maturity", "type": "XLNumeric"},
+              "weighted_avg_life": {"field": "weighted_avg_life", "type": "XLNumeric"},
+              "daily_maturing_asset_pct": {"field": "daily_maturing_asset_pct", "type": "XLNumeric"},
+              "weekly_maturing_asset_pct": {"field": "weekly_maturing_asset_pct", "type": "XLNumeric"},
+              "ls1d_liquid": {"field": "ls1d_liquid", "type": "XLNumeric"},
+              "d2t7_liquid": {"field": "d2t7_liquid", "type": "XLNumeric"},
+              "d829_liquid": {"field": "d829_liquid", "type": "XLNumeric"},
+              "a30d_liquid": {"field": "a30d_liquid", "type": "XLNumeric"},
+              "base_ccy_nav": {"field": "base_ccy_nav", "type": "XLNumeric"},
+              "report_ccy_nav": {"field": "report_ccy_nav", "type": "XLNumeric"},
+              "lt3m_perf": {"field": "lt3m_perf", "type": "XLNumeric"},
+              "lt1m_perf": {"field": "lt1m_perf", "type": "XLNumeric"},
+              "lt1y_perf": {"field": "lt1y_perf", "type": "XLNumeric"},
+              "lt3y_perf": {"field": "lt3y_perf", "type": "XLNumeric"},
+              "lt5y_perf": {"field": "lt5y_perf", "type": "XLNumeric"},
+              "cytd_perf": {"field": "cytd_perf", "type": "XLNumeric"},
+              "lt1y_vol": {"field": "lt1y_vol", "type": "XLNumeric"},
+              "lt2y_vol": {"field": "lt2y_vol", "type": "XLNumeric"},
+              "lt3y_vol": {"field": "lt3y_vol", "type": "XLNumeric"},
+              "lt1y_shadow_vol": {"field": "lt1y_shadow_vol", "type": "XLNumeric"},
+              "lt2y_shadow_vol": {"field": "lt2y_shadow_vol", "type": "XLNumeric"},
+              "lt3y_shadow_vol": {"field": "lt3y_shadow_vol", "type": "XLNumeric"},
+              "yms2_perf": {"field": "yms2_perf", "type": "XLNumeric"},
+              "ymn3_perf": {"field": "ymn3_perf", "type": "XLNumeric"},
+              "yms1_perf": {"field": "yms1_perf", "type": "XLNumeric"}
+  }
+}

@@ -1,0 +1,131 @@
+{ "attributes": {
+  "asset_type": {
+    "field": "AsstTp",
+    "type": "AssetType"
+  },
+  "cfi_iso": {
+    "field": "Asst_ClssfctnTp",
+    "type": "XLString"
+  },
+  "party_sector_type": {
+    "field": "Issuer_Counterparty_SCTR",
+    "type": "PositionPartySector"
+  },
+  "maturity": {
+    "field": "MtrtyDt",
+    "type": "XLDate"
+  },
+  "notional_currency": {
+    "field": "NtnlCcyFrstLeg",
+    "type": "XLString"
+  },
+  "quantity": {
+    "field": "Unit",
+    "type": "XLNumeric"
+  },
+  "val_type": {
+    "field": "ValtnTp",
+    "type": "ValuationType"
+  },
+  "credit_assessment": {
+    "field": "CdtAssmntRslt",
+    "type": "AssessmentResultType"
+  },
+  "asset_ctry_code": {
+    "field": "AsstCtry",
+    "type": "XLString"
+  },
+  "supernational": {
+    "field": "SprntnlCtry",
+    "type": "XLString"
+  },
+  "party_lei": {
+    "field": "Issuer_Counterparty_Sponsor_LEI",
+    "type": "XLString"
+  },
+  "party_name": {
+    "field": "Issuer_Counterparty_Sponsor_Name",
+    "type": "XLString"
+  },
+  "instr_name": {
+    "field": "Asst_Nm",
+    "type": "XLString"
+  },
+  "instr_isin": {
+    "field": "Asst_ISIN",
+    "type": "XLString"
+  },
+  "base_ccy_price": {
+    "field": "Price_BaseCcyAmt",
+    "type": "XLNumeric"
+  },
+  "report_ccy_price": {
+    "field": "Price_EUR",
+    "type": "XLNumeric"
+  },
+  "base_ccy_ai": {
+    "field": "AcrdIntrst_BaseCcyAmt",
+    "type": "XLNumeric"
+  },
+  "report_ccy_ai": {
+    "field": "AcrdIntrst_EUR",
+    "type": "XLNumeric"
+  },
+  "base_ccy_mv": {
+    "field": "TtlVal_BaseCcyAmt",
+    "type": "XLNumeric"
+  },
+  "report_ccy_mv": {
+    "field": "TtlVal_EUR",
+    "type": "XLNumeric"
+  },
+  "reset_date": {
+    "field": "RstDt",
+    "type": "XLDate"
+  },
+  "base_ccy_collat": {
+    "field": "CollValue_BaseCcyAmt",
+    "type": "XLNumeric"
+  },
+  "report_ccy_colat": {
+    "field": "CollValue_EUR",
+    "type": "XLNumeric"
+  },
+  "base_ccy_exposure": {
+    "field": "Exposure_BaseCcyAmt",
+    "type": "XLNumeric"
+  },
+  "report_ccy_exposure": {
+    "field": "Exposure_EUR",
+    "type": "XLNumeric"
+  },
+  "unique_instr_id": {
+    "field": "Deriv_UnqPdctIdr",
+    "type": "XLString"
+  },
+  "second_leg_currency": {
+    "field": "Deriv_NtnlCcyScndLeg",
+    "type": "XLString"
+  },
+  "underlying_name": {
+    "field": "Deriv_Undrlyg_Nm",
+    "type": "XLString"
+  },
+  "underlying_isin": {
+    "field": "Deriv_Undrlyg_ISIN",
+    "type": "XLString"
+  },
+  "contract_type": {
+    "field": "Deriv_CtrctTp",
+    "type": "XLString"
+  },
+  "underlying_type": {
+    "field": "Deriv_UndrlygTp",
+    "type": "XLString"
+  },
+  "asset_lei": {
+    "field": "AsstLEI",
+    "type": "XLString"
+  }
+}
+}
