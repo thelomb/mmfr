@@ -1,0 +1,5 @@
+{
+  "attributes": {
+    "highest_beneficial_owner_pct": {"field": "highest_beneficial_owner_pct", "type": "XLNumeric"}
+  }
+}

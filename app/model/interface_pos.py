@@ -1,14 +1,17 @@
-from app.model.fund_calc import MnyMktInstrmHldg, \
-    DerivHldg, \
-    ScrtstnAsstBckdComrclPprHldg, \
-    MnyMktFndHldgInf, \
-    DpstAncllryLqdAsstHldg, \
-    RpAgrmtHldg, \
-    RvsRpAgrmtCollData, \
-    PrtflPrfrmnc
+from app.model.fund_calc import (MnyMktInstrmHldg,
+                                 DerivHldg,
+                                 ScrtstnAsstBckdComrclPprHldg,
+                                 MnyMktFndHldgInf,
+                                 DpstAncllryLqdAsstHldg,
+                                 RpAgrmtHldg,
+                                 RvsRpAgrmtCollData,
+                                 PrtflPrfrmnc,
+                                 LbltyInf,
+                                 StrssTst)
 from app.config import (binding_files_position_fund_data,
                         binding_files_performance_fund_data,
-                        binding_files_liability_fund_data)
+                        binding_files_liability_fund_data,
+                        binding_files_stress_test_fund_data)
 import json
 from app.model.excel import XLType
 from datetime import date
@@ -258,33 +261,47 @@ class Liability:
         self.details = ''
 
     def from_dict(self, data, header):
-        performance = {}
-        for key, value in Performance.binding.items():
+        liabilities = {}
+        for key, value in Liability.binding.items():
             print('key: ', key, 'mapping: ', value, 'value: ', data[header.index(value['field'])])
-            performance[key] = XLType(value['type']).clean(data[header.index(value['field'])])
-        self.details = PrtflPrfrmnc(
-            weighted_avg_maturity=performance['weighted_avg_maturity'],
-            weighted_avg_life=performance['weighted_avg_life'],
-            daily_maturing_asset_pct=performance['daily_maturing_asset_pct'],
-            weekly_maturing_asset_pct=performance['weekly_maturing_asset_pct'],
-            ls1d_liquid=performance['ls1d_liquid'],
-            d2t7_liquid=performance['d2t7_liquid'],
-            d829_liquid=performance['d829_liquid'],
-            a30d_liquid=performance['a30d_liquid'],
-            base_ccy_nav=performance['base_ccy_nav'],
-            report_ccy_nav=performance['report_ccy_nav'],
-            lt3m_perf=performance['lt3m_perf'],
-            lt1m_perf=performance['lt1m_perf'],
-            lt1y_perf=performance['lt1y_perf'],
-            lt3y_perf=performance['lt3y_perf'],
-            lt5y_perf=performance['lt5y_perf'],
-            cytd_perf=performance['cytd_perf'],
-            lt1y_vol=performance['lt1y_vol'],
-            lt2y_vol=performance['lt2y_vol'],
-            lt3y_vol=performance['lt3y_vol'],
-            lt1y_shadow_vol=performance['lt1y_shadow_vol'],
-            lt2y_shadow_vol=performance['lt2y_shadow_vol'],
-            lt3y_shadow_vol=performance['lt3y_shadow_vol'],
-            yms2_perf=performance['yms2_perf'],
-            ymn3_perf=performance['ymn3_perf'],
-            yms1_perf=performance['yms1_perf'])
+            liabilities[key] = XLType(value['type']).clean(data[header.index(value['field'])])
+        self.details = LbltyInf(
+            highest_beneficial_owner_pct=liabilities['highest_beneficial_owner_pct'],
+            prof_estimated_rate=liabilities['prof_estimated_rate'],
+            prof_precise_rate=liabilities['prof_precise_rate'],
+            retail_estimated_rate=liabilities['retail_estimated_rate'],
+            retail_precise_rate=liabilities['retail_precise_rate'],
+            investor_bank_pct=liabilities['investor_bank_pct'],
+            investor_general_govt_pct=liabilities['investor_general_govt_pct'],
+            investor_household_pct=liabilities['investor_household_pct'],
+            investor_insurance_pct=liabilities['investor_insurance_pct'],
+            investor_non_fin_pct=liabilities['investor_non_fin_pct'],
+            investor_mmf_pct=liabilities['investor_mmf_pct'],
+            investor_other_fin_pct=liabilities['investor_other_fin_pct'],
+            investor_pension_fund_pct=liabilities['investor_pension_fund_pct'],
+            investor_unknown_pct=liabilities['investor_unknown_pct'],
+            country_breakdown_pct=liabilities['country_breakdown_pct'],
+            redemption_frequency=liabilities['redemption_frequency'],
+            notice_period=liabilities['notice_period'],
+            arrangement_breakdown_pct=liabilities['arrangement_breakdown_pct'],
+            other_arrangement=liabilities['other_arrangement'],
+            monthly_nav=liabilities['monthly_nav'],
+            monthly_subs=liabilities['monthly_subs'],
+            monthly_redemption=liabilities['monthly_redemption'],
+            monthly_payment=liabilities['monthly_payment'],
+            monthly_xrate=liabilities['monthly_xrate'])
+
+
+class StressTest:
+    binding = Binding(binding_files_stress_test_fund_data).map
+
+    def __init__(self, fund_code):
+        self.fund_code = fund_code
+        self.details = ''
+
+    def from_dict(self, data, header):
+        stress_test = {}
+        for key, value in Liability.binding.items():
+            print('key: ', key, 'mapping: ', value, 'value: ', data[header.index(value['field'])])
+            stress_test[key] = XLType(value['type']).clean(data[header.index(value['field'])])
+        self.details = StrssTst()

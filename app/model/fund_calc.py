@@ -1,17 +1,8 @@
 from app.model import pmmfr
 
-
-class StrssTst(pmmfr.StressTestReport1__1):
-    def __init__(self):
-        super().__init__()
-
-
+supranationals = []
+unknowns = []
 class AsstInf(pmmfr.HoldingAsset3__1):
-    def __init__(self):
-        super().__init__()
-
-
-class LbltyInf(pmmfr.LiabilityData3__1):
     def __init__(self):
         super().__init__()
 
@@ -623,6 +614,7 @@ class Yld(pmmfr.Yield1__1):
         self.CalYrPrfrmncBrkdwn.append(CalYrPrfrmncBrkdwn(range_type='YMS1', perf=yms1_perf))
 
 
+
 class PrtflPrfrmnc(pmmfr.PerformanceFactors2__1):
     def __init__(self,
                  weighted_avg_maturity,
@@ -670,3 +662,260 @@ class PrtflPrfrmnc(pmmfr.PerformanceFactors2__1):
                        ymn3_perf,
                        yms1_perf)
 
+# Liability
+
+class LiabilityRate(pmmfr.Liability1__1):
+    def __init__(self, estimated_rate, precise_rate):
+        super().__init__()
+        self.EstmtdRate = pmmfr.PercentageBoundedRate(estimated_rate)
+        self.PreciseRate = pmmfr.PercentageBoundedRate(precise_rate)
+
+class InvstrCncntrtn(pmmfr.InvestorConcentration1__1):
+    def __init__(self, prof_estimated_rate, prof_precise_rate, retail_estimated_rate, retail_precise_rate):
+        super().__init__()
+        self.PrfssnlInvstrRate = LiabilityRate(prof_estimated_rate, prof_precise_rate)
+        self.RtlInvstrRate = LiabilityRate(retail_estimated_rate, retail_precise_rate)
+
+class InvestorGroupBreakdown(pmmfr.InvestorGroupBreakdownType2__1):
+    def __init__(self,
+                 investor_bank_pct,
+                 investor_general_govt_pct,
+                 investor_household_pct,
+                 investor_insurance_pct,
+                 investor_non_fin_pct,
+                 investor_mmf_pct,
+                 investor_other_fin_pct,
+                 investor_pension_fund_pct,
+                 investor_unknown_pct):
+        super().__init__()
+        self.BkRate = pmmfr.PercentageBoundedRate(investor_bank_pct)
+        self.GnlGovntRate = pmmfr.PercentageBoundedRate(investor_general_govt_pct)
+        self.HsHldRate = pmmfr.PercentageBoundedRate(investor_household_pct)
+        self.InsrncCorptnRate = pmmfr.PercentageBoundedRate(investor_insurance_pct)
+        self.NonFinCorptnRate = pmmfr.PercentageBoundedRate(investor_non_fin_pct)
+        self.NonMnyMktFndInvstmtFndRate = pmmfr.PercentageBoundedRate(investor_mmf_pct)
+        self.OthrFIRate = pmmfr.PercentageBoundedRate(investor_other_fin_pct)
+        self.PnsnPlanOrFndRate = pmmfr.PercentageBoundedRate(investor_pension_fund_pct)
+        self.UknwnRate = pmmfr.PercentageBoundedRate(investor_unknown_pct)
+
+class Country1Choice__3(pmmfr.Country1Choice__3):
+    def __init__(self, ctry):
+        super().__init__()
+        if ctry in supranationals:
+            self.SprntnlCtry = pmmfr.TrueFalseIndicator_fixed__1(True)
+        elif ctry in unknowns:
+            self.UknwnCtry = pmmfr.TrueFalseIndicator_fixed__1(True)
+        else:
+            self.Ctry = pmmfr.CountryCode(ctry)
+
+class CountryPct(pmmfr.BreakdownByCountry4__1):
+    def __init__(self, ctry, pct):
+        super().__init__()
+        self.CtryOfRes = Country1Choice__3(ctry=ctry)
+        self.Rate = pmmfr.PercentageBoundedRate(pct)
+
+class BrkdwnByArrgmnt(pmmfr.BreakdownByArrangement2__1):
+    def __init__(self, arrangement_type, pct):
+        super().__init__()
+        self.ArrgmntTp = pmmfr.ArrangementType4Code(arrangement_type)
+        self.NetAsstValRate = pmmfr.PercentageBoundedRate(pct)
+
+class MonthlyValue2Choice__1(pmmfr.MonthlyValue2Choice__1):
+    def __init__(self, val):
+        super().__init__()
+        if val:
+            self.Val = pmmfr.ImpliedCurrencyAndAmount(val)
+        else:
+            self.NotAvlblVal = pmmfr.NotAvailable1Code('NTAV')
+
+class ForeignExchangeTerms36__1(pmmfr.ForeignExchangeTerms36__1):
+    def __init__(self, ccy, xrate):
+        super().__init__()
+        self.UnitCcy = pmmfr.ActiveOrHistoricCurrencyCode_fixed('EUR')
+        self.QtdCcy = pmmfr.ActiveOrHistoricCurrencyCode(ccy)
+        self.XchgRate = pmmfr.BaseOneRate(xrate)
+
+class MonthlyValue2Choice__2(pmmfr.MonthlyValue2Choice__2):
+    def __init__(self, ccy, xrate):
+        super().__init__()
+        if ccy and xrate:
+            self.FX = ForeignExchangeTerms36__1(ccy=ccy, xrate=xrate)
+        else:
+            self.NotAvlblVal = pmmfr.NotAvailable1Code('NTAV')
+
+
+class MonthType3__1(pmmfr.MonthType3__1):
+    def __init__(self, month, val):
+        super().__init__()
+        self.Mnth = pmmfr.ReportingPeriodType2Code__1("MM"+f"{month:02d}")
+        self.Val = MonthlyValue2Choice__1(val)
+
+class MonthType3__2(pmmfr.MonthType3__2):
+    def __init__(self, month, val):
+        super().__init__()
+        self.Mnth = pmmfr.ReportingPeriodType2Code__2("MM"+f"{month:02d}")
+        self.Val = MonthlyValue2Choice__1(val)
+
+class MonthType3__3(pmmfr.MonthType3__3):
+    def __init__(self, month, val):
+        super().__init__()
+        self.Mnth = pmmfr.ReportingPeriodType2Code__3("MM"+f"{month:02d}")
+        self.Val = MonthlyValue2Choice__1(val)
+
+class MonthType3__4(pmmfr.MonthType3__4):
+    def __init__(self, month, val):
+        super().__init__()
+        self.Mnth = pmmfr.ReportingPeriodType2Code__4("MM"+f"{month:02d}")
+        self.Val = MonthlyValue2Choice__1(val)
+
+class MonthType3__5(pmmfr.MonthType3__5):
+    def __init__(self, month, ccy, xrate):
+        super().__init__()
+        self.Val = MonthlyValue2Choice__2(ccy=ccy, xrate=xrate)
+        self.Mnth = pmmfr.ReportingPeriodType2Code__1("MM"+f"{month:02d}")
+
+class MonthType3__6(pmmfr.MonthType3__6):
+    def __init__(self, month, ccy, xrate):
+        super().__init__()
+        self.Val = MonthlyValue2Choice__2(ccy=ccy, xrate=xrate)
+        self.Mnth = pmmfr.ReportingPeriodType2Code__2("MM"+f"{month:02d}")
+
+class MonthType3__7(pmmfr.MonthType3__7):
+    def __init__(self, month, ccy, xrate):
+        super().__init__()
+        self.Val = MonthlyValue2Choice__2(ccy=ccy, xrate=xrate)
+        self.Mnth = pmmfr.ReportingPeriodType2Code__3("MM"+f"{month:02d}")
+
+class MonthType3__8(pmmfr.MonthType3__8):
+    def __init__(self, month, ccy, xrate):
+        super().__init__()
+        self.Val = MonthlyValue2Choice__2(ccy=ccy, xrate=xrate)
+        self.Mnth = pmmfr.ReportingPeriodType2Code__4("MM"+f"{month:02d}")
+
+
+class Quarter3__1(pmmfr.Quarter3__1):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__1(month=m+1, val=val[m]))
+
+class Quarter3__2(pmmfr.Quarter3__2):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__2(month=m+4, val=val[m]))
+
+class Quarter3__3(pmmfr.Quarter3__3):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__3(month=m+7, val=val[m]))
+
+
+class Quarter3__4(pmmfr.Quarter3__4):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__4(month=m+10, val=val[m]))
+
+class Quarter3__5(pmmfr.Quarter3__5):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__5(month=m + 1, ccy=val[m].get('ccy'), xrate=val[m].get('xrate')))
+
+class Quarter3__6(pmmfr.Quarter3__6):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__6(month=m + 4, ccy=val[m].get('ccy'), xrate=val[m].get('xrate')))
+
+class Quarter3__7(pmmfr.Quarter3__7):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__7(month=m + 7, ccy=val[m].get('ccy'), xrate=val[m].get('xrate')))
+
+class Quarter3__8(pmmfr.Quarter3__8):
+    def __init__(self, val):
+        super().__init__()
+        for m in range(3):
+            self.MnthInf.append(MonthType3__8(month=m + 10, ccy=val[m].get('ccy'), xrate=val[m].get('xrate')))
+
+
+class MnthlyValue(pmmfr.MonthValue2__1):
+    def __init__(self, monthly_val):
+        super().__init__()
+        self.FrstQrtr = Quarter3__1(val=monthly_val[:3])
+        self.ScndQrtr = Quarter3__2(val=monthly_val[3:6])
+        self.ThrdQrtr = Quarter3__3(val=monthly_val[6:9])
+        self.FrthQrtr = Quarter3__4(val=monthly_val[9:12])
+
+
+class MonthValue2__2(pmmfr.MonthValue2__2):
+    def __init__(self, monthly_val):
+        super().__init__()
+        self.FrstQrtr = Quarter3__5(val=monthly_val[:3])
+        self.ScndQrtr = Quarter3__6(val=monthly_val[3:6])
+        self.ThrdQrtr = Quarter3__7(val=monthly_val[6:9])
+        self.FrthQrtr = Quarter3__8(val=monthly_val[9:12])
+
+
+class LbltyInf(pmmfr.LiabilityData3__1):
+    def __init__(self,
+                 highest_beneficial_owner_pct,
+                 prof_estimated_rate,
+                 prof_precise_rate,
+                 retail_estimated_rate,
+                 retail_precise_rate,
+                 investor_bank_pct,
+                 investor_general_govt_pct,
+                 investor_household_pct,
+                 investor_insurance_pct,
+                 investor_non_fin_pct,
+                 investor_mmf_pct,
+                 investor_other_fin_pct,
+                 investor_pension_fund_pct,
+                 investor_unknown_pct,
+                 country_breakdown_pct, #list
+                 redemption_frequency, #enum -> in static data...
+                 notice_period,
+                 arrangement_breakdown_pct, #list
+                 other_arrangement,
+                 monthly_nav, #list,
+                 monthly_subs, #list
+                 monthly_redemption, #list
+                 monthly_payment, #list
+                 monthly_xrate #list of dict ccy/xrate
+                 ):
+        super().__init__()
+        self.HghstBnfclOwnrRate = pmmfr.PercentageBoundedRate(highest_beneficial_owner_pct)
+        self.InvstrCncntrtn = InvstrCncntrtn(prof_estimated_rate, prof_precise_rate, retail_estimated_rate, retail_precise_rate)
+        for _ in range(9):
+            self.InvstrGrpBrkdwn.append(InvestorGroupBreakdown(investor_bank_pct=investor_bank_pct,
+                                                               investor_general_govt_pct=investor_general_govt_pct,
+                                                               investor_household_pct=investor_household_pct,
+                                                               investor_insurance_pct=investor_insurance_pct,
+                                                               investor_non_fin_pct=investor_non_fin_pct,
+                                                               investor_mmf_pct=investor_mmf_pct,
+                                                               investor_other_fin_pct=investor_other_fin_pct,
+                                                               investor_pension_fund_pct=investor_pension_fund_pct,
+                                                               investor_unknown_pct=investor_unknown_pct))
+        for country in country_breakdown_pct:
+            for ctry, pct in country.items():
+                self.BrkdwnByCtry.append(CountryPct(ctry, pct))
+        self.RedDealgFrqcy = pmmfr.EventFrequency9Code__1(redemption_frequency)
+        self.NtceDays = pmmfr.Max3Number(notice_period)
+        for arrangement in arrangement_breakdown_pct:
+            for arrangement_type, pct in arrangement.items():
+                self.BrkdwnByArrgmnt.append(BrkdwnByArrgmnt(arrangement_type=arrangement_type, pct=pct))
+        self.OthrArrgmntAddtlInf = pmmfr.Max350Text(other_arrangement) if other_arrangement else None
+        self.MnthlyNetAsstValPerUnitInf = MnthlyValue(monthly_val=monthly_nav)
+        self.MnthlySbcptInf = MnthlyValue(monthly_val=monthly_subs)
+        self.MnthlyRedInf = MnthlyValue(monthly_val=monthly_redemption)
+        self.MnthlyPmtToInvstrInf = MnthlyValue(monthly_val=monthly_payment)
+        self.MnthlyXchgRateInf = MonthValue2__2(monthly_val=monthly_xrate)
+
+# Stress Test
+class StrssTst():
+    pass

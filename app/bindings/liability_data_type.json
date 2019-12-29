@@ -1,4 +1,29 @@
 {
   "attributes": {
+                 "highest_beneficial_owner_pct": {"field": "highest_beneficial_owner_pct", "type": "XLNumeric"},
+                 "prof_estimated_rate": {"field": "prof_estimated_rate", "type": "XLNumeric"},
+                 "prof_precise_rate": {"field": "prof_precise_rate", "type": "XLNumeric"},
+                 "retail_estimated_rate": {"field": "retail_estimated_rate", "type": "XLNumeric"},
+                 "retail_precise_rate": {"field": "retail_precise_rate", "type": "XLNumeric"},
+                 "investor_bank_pct": {"field": "investor_bank_pct", "type": "XLNumeric"},
+                 "investor_general_govt_pct": {"field": "investor_general_govt_pct", "type": "XLNumeric"},
+                 "investor_household_pct": {"field": "investor_household_pct", "type": "XLNumeric"},
+                 "investor_insurance_pct": {"field": "investor_insurance_pct", "type": "XLNumeric"},
+                 "investor_non_fin_pct": {"field": "investor_non_fin_pct", "type": "XLNumeric"},
+                 "investor_mmf_pct": {"field": "investor_mmf_pct", "type": "XLNumeric"},
+                 "investor_other_fin_pct": {"field": "investor_other_fin_pct", "type": "XLNumeric"},
+                 "investor_pension_fund_pct": {"field": "investor_pension_fund_pct", "type": "XLNumeric"},
+                 "investor_unknown_pct": {"field": "investor_unknown_pct", "type": "XLNumeric"},
+                 "country_breakdown_pct": {"field": "country_breakdown_pct", "type": "XLNone"},
+                 "redemption_frequency": {"field": "redemption_frequency", "type": "Frequency"},
+                 "notice_period": {"field": "notice_period", "type": "XLNumeric"},
+                 "arrangement_breakdown_pct": {"field": "arrangement_breakdown_pct", "type": "XLNone"},
+                 "other_arrangement": {"field": "other_arrangement", "type": "XLString"},
+                 "monthly_nav": {"field": "monthly_nav", "type": "XLNone"},
+                 "monthly_subs": {"field": "monthly_subs", "type": "XLNone"},
+                 "monthly_redemption": {"field": "monthly_redemption", "type": "XLNone"},
+                 "monthly_payment": {"field": "monthly_payment", "type": "XLNone"},
+                 "monthly_xrate": {"field": "monthly_xrate", "type": "XLNone"}
+    
   }
 }

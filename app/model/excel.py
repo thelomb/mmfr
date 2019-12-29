@@ -217,3 +217,27 @@ class PerformanceRange(XLEnum):
         'abovethirtydays': 'A30D'
 
                }
+
+class Frequency(XLEnum):
+    mapping = {
+        'month': 'MNTH',
+        'twiceamonth': 'TWMN',
+        'weekly': 'WEEK',
+        'daily': 'DAIL',
+        'adhoc': 'ADHO',
+        'none': 'NONE'
+    }
+    default = 'NONE'
+
+class Arrangement(XLEnum):
+    mapping = {
+        'SuspensionOfRedemption': 'SPRN',
+        'Gates': 'GATE',
+        'LiquidityFeesOnRedemptions': 'RDLF',
+        'OtherArrangement': 'OTHR'
+    }
+
+class XLNone:
+    @staticmethod
+    def clean(v):
+        return v

@@ -1,8 +1,8 @@
 from app.model import pmmfr as pmmfr
 from app.model.interface import Fund
-from app.model.interface_pos import Position, Performance, Liability
+from app.model.interface_pos import Position, Performance, Liability, StressTest
 from app.model.fund_calc import AsstInf
-from app.input.mock import MockPerf
+from app.input.mock import MockPerf, MockLiability, MockStressTest
 
 class Report():
     def __init__(self):
@@ -47,11 +47,14 @@ class Report():
             f.FndRpt.Upd.RptData.DataSetActn=None
             f.FndRpt.Upd.RptData.QttyData = pmmfr.QuantitativeData4__1()
             f.FndRpt.Upd.RptData.QttyData.AsstInf = pmmfr.HoldingAsset3__1()
-            f.FndRpt.Upd.RptData.QttyData.PrtflPrfrmnc = Performance(fund_code=f.fund_code).from_dict(data=MockPerf.data,header=MockPerf.header)
-            f.FndRpt.Upd.RptData.QttyData.LbltyInf = Liability(fund_code=f.fund_code).from_dict(data=MockPerf.data,header=MockPerf.header)
+            f.FndRpt.Upd.RptData.QttyData.PrtflPrfrmnc = Performance(fund_code=f.fund_code).from_dict(data=MockPerf.data,
+                                                                                                      header=MockPerf.header)
+            f.FndRpt.Upd.RptData.QttyData.LbltyInf = Liability(fund_code=f.fund_code).from_dict(data=MockLiability.data,
+                                                                                                header=MockLiability.header)
+            f.FndRpt.Upd.RptData.QttyData.StrssTst = StressTest(fund_code=f.fund_code).from_dict(data=MockStressTest.data,
+                                                                                                 header=MockStressTest.header)
             for position in self.positions:
                 f.FndRpt.Upd.RptData.QttyData.AsstInf.append(position.details.details)
-            print('hello')
             self.document.MnyMktFndRpt.append(f.FndRpt)
 
     def to_xml(self, destination):
