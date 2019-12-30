@@ -1,5 +1,12 @@
 {
   "attributes": {
-    "highest_beneficial_owner_pct": {"field": "highest_beneficial_owner_pct", "type": "XLNumeric"}
+    "test_date": {"field": "test_date", "type": "XLNone"},
+    "net_asset_value_basis": {"field": "net_asset_value_basis", "type": "NetAssetBasis"},
+    "code": {"field": "code", "type": "XLString"},
+    "impact": {"field": "impact", "type": "XLList"},
+    "input_factor": {"field": "input_factor", "type": "XLNumeric"},
+    "comment": {"field": "comment", "type": "XLString"},
+    "action_plan": {"field":  "action_plan", "type": "XLString"},
+    "fund_code": {"field":  "fund_code", "type": "XLString"}
   }
 }

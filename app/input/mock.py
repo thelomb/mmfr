@@ -1,3 +1,6 @@
+from datetime import date
+
+
 class MockPerf:
     header = ['weighted_avg_maturity',
               'weighted_avg_life',
@@ -95,13 +98,13 @@ class MockLiability:
             0.1,
             0.1,
             0.2,
-            [{'FR': 0.5}, {'GB': 0.2}, {'US':0.3}],
+            [{'FR': 0.5}, {'GB': 0.2}, {'US': 0.3}],
             'daily',
             3,
             [{'SPRN': 0.2}, {'GATE': 0.1}, {'RDLF': 0.1}, {'OTHR': 0.5}],
             'None',
             [100 + m + 1 for m in range(12)],
-            [(m + 1)/100 for m in range(12)],
+            [(m + 1) / 100 for m in range(12)],
             [(m + 1) / 200 for m in range(12)],
             [0.05 for _ in range(12)],
             [{'ccy': 'USD', 'xrate': 0.9} for _ in range(12)]
@@ -110,54 +113,21 @@ class MockLiability:
 
 class MockStressTest:
     header = [
-        "highest_beneficial_owner_pct",
-        "prof_estimated_rate",
-        "prof_precise_rate",
-        "retail_estimated_rate",
-        "retail_precise_rate",
-        "investor_bank_pct",
-        "investor_general_govt_pct",
-        "investor_household_pct",
-        "investor_insurance_pct",
-        "investor_non_fin_pct",
-        "investor_mmf_pct",
-        "investor_other_fin_pct",
-        "investor_pension_fund_pct",
-        "investor_unknown_pct",
-        "country_breakdown_pct",
-        "redemption_frequency",
-        "notice_period",
-        "arrangement_breakdown_pct",
-        "other_arrangement",
-        "monthly_nav",
-        "monthly_subs",
-        "monthly_redemption",
-        "monthly_payment",
-        "monthly_xrate"
-
+        "test_date",
+        "net_asset_value_basis",
+        "code",
+        "impact",
+        "input_factor",
+        "comment",
+        "action_plan",
+        "fund_code"
     ]
-    data = [0.2,
-            0.9,
-            0.91,
-            0.1,
-            0.09,
-            0.1,
-            0.1,
-            0.1,
-            0.1,
-            0.1,
-            0.1,
-            0.1,
-            0.1,
-            0.2,
-            [{'FR': 0.5}, {'GB': 0.2}, {'US':0.3}],
-            'daily',
-            3,
-            [{'SPRN': 0.2}, {'GATE': 0.1}, {'RDLF': 0.1}, {'OTHR': 0.5}],
-            'None',
-            [100 + m + 1 for m in range(12)],
-            [(m + 1)/100 for m in range(12)],
-            [(m + 1) / 200 for m in range(12)],
-            [0.05 for _ in range(12)],
-            [{'ccy': 'USD', 'xrate': 0.9} for _ in range(12)]
-            ]
+    data = [[date.today(),
+             'cnav',
+             'code 1',
+             '0.74',
+             None,
+             None,
+             'A plan',
+             'FCD1'
+             ]]

@@ -1,6 +1,6 @@
 from app.model import pmmfr as pmmfr
 from app.model.interface import Fund
-from app.model.interface_pos import Position, Performance, Liability, StressTest
+from app.model.interface_pos import Position, Performance, Liability, StressTest, ActionPlan
 from app.model.fund_calc import AsstInf
 from app.input.mock import MockPerf, MockLiability, MockStressTest
 
@@ -9,6 +9,7 @@ class Report():
         self.document = pmmfr.Document(MnyMktFndRpt=pmmfr.MoneyMarketFundReportV01())
         self.funds = []
         self.positions = []
+        self.stress_test = []
 
     def static_data(self, data):
         header, content = data
@@ -17,7 +18,7 @@ class Report():
             print('Processing fund static data for {fund}'.format(fund=f.fund_code))
             f.static_data(data=fund, header=header)
             self.funds.append(f)
-            #self.document.MnyMktFndRpt.append(f.FndRpt)
+            # self.document.MnyMktFndRpt.append(f.FndRpt)
 
     def dynamic_data(self, data=None):
         if data is None:
@@ -42,19 +43,45 @@ class Report():
             print(self.positions)
         self.positions.sort()
 
+    def stress_test_data(self):
+        print('hell')
+        self.stress_test = pmmfr.StressTestReport1__1()
+        header = MockStressTest.header
+        content = MockStressTest.data
+        print(content)
+        action_plan = ActionPlan()
+        for test in content:
+            t = StressTest(test[header.index('fund_code')])
+            t.from_dict(data=test, header=header)
+            self.stress_test.StrssTstRslt.append(t.details)
+            action_plan = ActionPlan(test[header.index('action_plan')])
+
+        self.stress_test.ActnPlan = action_plan
+
     def build(self):
         for f in self.funds:
             f.FndRpt.Upd.RptData.DataSetActn=None
-            f.FndRpt.Upd.RptData.QttyData = pmmfr.QuantitativeData4__1()
-            f.FndRpt.Upd.RptData.QttyData.AsstInf = pmmfr.HoldingAsset3__1()
-            f.FndRpt.Upd.RptData.QttyData.PrtflPrfrmnc = Performance(fund_code=f.fund_code).from_dict(data=MockPerf.data,
-                                                                                                      header=MockPerf.header)
-            f.FndRpt.Upd.RptData.QttyData.LbltyInf = Liability(fund_code=f.fund_code).from_dict(data=MockLiability.data,
-                                                                                                header=MockLiability.header)
-            f.FndRpt.Upd.RptData.QttyData.StrssTst = StressTest(fund_code=f.fund_code).from_dict(data=MockStressTest.data,
-                                                                                                 header=MockStressTest.header)
+
+            f.FndRpt.Upd.RptData.QttvData = pmmfr.QuantitativeData4__1()
+            f.FndRpt.Upd.RptData.QttvData.AsstInf = pmmfr.HoldingAsset3__1()
+            perf = Performance(fund_code=f.fund_code)
+            perf.from_dict(data=MockPerf.data, header=MockPerf.header)
+            f.FndRpt.Upd.RptData.QttvData.PrtflPrfrmnc = perf.details
+            liability = Liability(fund_code=f.fund_code)
+            liability.from_dict(data=MockLiability.data, header=MockLiability.header)
+            f.FndRpt.Upd.RptData.QttvData.LbltyInf = liability.details
+            f.FndRpt.Upd.RptData.QttvData.StrssTst = self.stress_test
             for position in self.positions:
-                f.FndRpt.Upd.RptData.QttyData.AsstInf.append(position.details.details)
+                f.FndRpt.Upd.RptData.QttvData.AsstInf.append(position.details.details)
+            print('Perf: ', f.FndRpt.Upd.RptData.QttvData.PrtflPrfrmnc.validateBinding())
+            print('Liability: ', f.FndRpt.Upd.RptData.QttvData.LbltyInf.validateBinding())
+            print('StressTest: ', f.FndRpt.Upd.RptData.QttvData.StrssTst.validateBinding())
+            print('Asset: ', f.FndRpt.Upd.RptData.QttvData.AsstInf.validateBinding())
+            print('Qtty: ', f.FndRpt.Upd.RptData.QttvData.validateBinding())
+            print('RPT: ', f.FndRpt.Upd.RptData)
+            print('RPT: ', f.FndRpt.Upd.RptData.validateBinding())
+
+
             self.document.MnyMktFndRpt.append(f.FndRpt)
 
     def to_xml(self, destination):

@@ -126,6 +126,10 @@
   "asset_lei": {
     "field": "AsstLEI",
     "type": "XLString"
+  },
+  "fin_underlying_type": {
+    "field": "FincgUndrlygTp",
+    "type": "FinancialUnderlyingType"
   }
 }
 }

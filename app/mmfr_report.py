@@ -11,6 +11,7 @@ def mmfr(output, static_date_file, position_data_file = None):
     r = Report()
     r.static_data(static_data)
     r.position_data(position_data)
+    r.stress_test_data()
     r.dynamic_data()
     xsd = XMLSchema('app/data/PLO_MMF_Regulatory_reporting_MoneyMarketFundReportV01_auth_093_001_01.xsd')
     if xsd.is_valid(r.to_xml(output)):

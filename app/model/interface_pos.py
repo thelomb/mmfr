@@ -7,7 +7,8 @@ from app.model.fund_calc import (MnyMktInstrmHldg,
                                  RvsRpAgrmtCollData,
                                  PrtflPrfrmnc,
                                  LbltyInf,
-                                 StrssTst)
+                                 ActionPlan,
+                                 StressTestResult)
 from app.config import (binding_files_position_fund_data,
                         binding_files_performance_fund_data,
                         binding_files_liability_fund_data,
@@ -21,7 +22,7 @@ invalid_type = ['', 0]
 
 
 class Binding:
-    def __init__(self,path):
+    def __init__(self, path):
         with open(path, 'r') as file:
             self.map = json.load(file)['attributes']
 
@@ -66,47 +67,52 @@ class PositionData:
 
     @staticmethod
     def money_market_instr(data):
-        return MnyMktInstrmHldg(asset_type=data['asset_type'],
-                                cfi_iso=data['cfi_iso'],
-                                party_sector_type=data['party_sector_type'],
-                                maturity=data['maturity'] or default_maturity,
-                                notional_currency=data['notional_currency'],
-                                quantity=data['quantity'],
-                                val_type=data['val_type'],
-                                credit_assessment=data['credit_assessment'],
-                                asset_ctry_code=data['asset_ctry_code'],
-                                party_lei=data['party_lei'],
-                                party_name=data['party_name'],
-                                instr_name=data['instr_name'],
-                                instr_isin=data['instr_isin'],
-                                base_ccy_price=data['base_ccy_price'],
-                                report_ccy_price=data['report_ccy_price'],
-                                base_ccy_ai=data['base_ccy_ai'],
-                                report_ccy_ai=data['report_ccy_ai'],
-                                base_ccy_mv=data['base_ccy_mv'],
-                                report_ccy_mv=data['report_ccy_mv'],
-                                reset_date=data['reset_date'])
+        mmi = MnyMktInstrmHldg(asset_type=data['asset_type'],
+                               cfi_iso=data['cfi_iso'],
+                               party_sector_type=data['party_sector_type'],
+                               maturity=data['maturity'] or default_maturity,
+                               notional_currency=data['notional_currency'],
+                               quantity=data['quantity'],
+                               val_type=data['val_type'],
+                               credit_assessment=data['credit_assessment'],
+                               asset_ctry_code=data['asset_ctry_code'],
+                               party_lei=data['party_lei'],
+                               party_name=data['party_name'],
+                               instr_name=data['instr_name'],
+                               instr_isin=data['instr_isin'],
+                               base_ccy_price=data['base_ccy_price'],
+                               report_ccy_price=data['report_ccy_price'],
+                               base_ccy_ai=data['base_ccy_ai'],
+                               report_ccy_ai=data['report_ccy_ai'],
+                               base_ccy_mv=data['base_ccy_mv'],
+                               report_ccy_mv=data['report_ccy_mv'],
+                               reset_date=data['reset_date'])
+        mmi.validateBinding()
+        return mmi
 
     @staticmethod
     def securitized(data):
-        return ScrtstnAsstBckdComrclPprHldg(asset_type=data['asset_type'],
-                                            cfi_iso=data['cfi_iso'],
-                                            maturity=data['maturity'],
-                                            notional_currency=data['notional_currency'],
-                                            quantity=data['quantity'],
-                                            val_type=data['val_type'],
-                                            credit_assessment=data['credit_assessment'],
-                                            asset_ctry_code=data['asset_ctry_code'],
-                                            party_lei=data['party_lei'],
-                                            party_name=data['party_name'],
-                                            instr_name=data['instr_name'],
-                                            instr_isin=data['instr_isin'],
-                                            base_ccy_price=data['base_ccy_price'],
-                                            report_ccy_price=data['report_ccy_price'],
-                                            base_ccy_ai=data['base_ccy_ai'],
-                                            report_ccy_ai=data['report_ccy_ai'],
-                                            base_ccy_mv=data['base_ccy_mv'],
-                                            report_ccy_mv=data['report_ccy_mv'])
+        sec = ScrtstnAsstBckdComrclPprHldg(asset_type=data['asset_type'],
+                                           cfi_iso=data['cfi_iso'],
+                                           maturity=data['maturity'],
+                                           notional_currency=data['notional_currency'],
+                                           quantity=data['quantity'],
+                                           val_type=data['val_type'],
+                                           credit_assessment=data['credit_assessment'],
+                                           asset_ctry_code=data['asset_ctry_code'],
+                                           party_lei=data['party_lei'],
+                                           party_name=data['party_name'],
+                                           instr_name=data['instr_name'],
+                                           instr_isin=data['instr_isin'],
+                                           base_ccy_price=data['base_ccy_price'],
+                                           report_ccy_price=data['report_ccy_price'],
+                                           base_ccy_ai=data['base_ccy_ai'],
+                                           report_ccy_ai=data['report_ccy_ai'],
+                                           base_ccy_mv=data['base_ccy_mv'],
+                                           report_ccy_mv=data['report_ccy_mv'],
+                                           fin_underlying_type=data['fin_underlying_type'])
+        sec.validateBinding()
+        return sec
 
     @staticmethod
     def derivatives(data):
@@ -217,6 +223,7 @@ class Position:
 
 class Performance:
     binding = Binding(binding_files_performance_fund_data).map
+
     def __init__(self, fund_code):
         self.fund_code = fund_code
         self.details = ''
@@ -256,6 +263,7 @@ class Performance:
 
 class Liability:
     binding = Binding(binding_files_liability_fund_data).map
+
     def __init__(self, fund_code):
         self.fund_code = fund_code
         self.details = ''
@@ -301,7 +309,12 @@ class StressTest:
 
     def from_dict(self, data, header):
         stress_test = {}
-        for key, value in Liability.binding.items():
+        for key, value in StressTest.binding.items():
             print('key: ', key, 'mapping: ', value, 'value: ', data[header.index(value['field'])])
             stress_test[key] = XLType(value['type']).clean(data[header.index(value['field'])])
-        self.details = StrssTst()
+        self.details = StressTestResult(test_date=stress_test['test_date'],
+                                        net_asset_value_basis=stress_test['net_asset_value_basis'],
+                                        code=stress_test['code'],
+                                        impact=stress_test['impact'],
+                                        input_factor=stress_test['input_factor'],
+                                        comment=stress_test['comment'])

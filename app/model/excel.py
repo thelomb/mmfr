@@ -209,6 +209,22 @@ class UnderlyingType(XLEnum):
         'InterestRateAndCurrency': 'INCU'
     }
 
+
+class FinancialUnderlyingType(XLEnum):
+    mapping = {
+        'CommercialMortgage': 'CMBS',
+        'ConsumerLoans': 'CSML',
+        'CreditCardReceivables': 'CCRB',
+        'Leasing': 'LESG',
+        'LoansToCorporatesOrSME': 'LTCS',
+        'OtherAsset': 'OTHR',
+        'otherasset': 'OTHR',
+        'ResidentialMortgage': 'RMBS',
+        'TradeReceivables': 'TDRB',
+        '': 'NONE'
+    }
+
+
 class PerformanceRange(XLEnum):
     mapping = {
         'twotosevendays': 'D2T7',
@@ -241,3 +257,9 @@ class XLNone:
     @staticmethod
     def clean(v):
         return v
+
+class NetAssetBasis(XLEnum):
+    mapping = {
+        'cnav': 'CNAV',
+        'navl': 'NAVL'
+    }
