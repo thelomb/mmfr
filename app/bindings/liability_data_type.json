@@ -23,7 +23,8 @@
                  "monthly_subs": {"field": "monthly_subs", "type": "XLNone"},
                  "monthly_redemption": {"field": "monthly_redemption", "type": "XLNone"},
                  "monthly_payment": {"field": "monthly_payment", "type": "XLNone"},
-                 "monthly_xrate": {"field": "monthly_xrate", "type": "XLNone"}
+                 "monthly_xrate": {"field": "monthly_xrate", "type": "XLNone"},
+                 "fund_code": {"field": "fund_code", "type": "XLString"}
     
   }
 }

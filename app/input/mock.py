@@ -26,7 +26,8 @@ class MockPerf:
               'lt3y_shadow_vol',
               'yms2_perf',
               'ymn3_perf',
-              'yms1_perf'
+              'yms1_perf',
+              'fund_code'
               ]
     data = [0.9,
             0.9,
@@ -52,8 +53,37 @@ class MockPerf:
             0.053,
             0.111,
             0.122,
-            0.133
+            0.133,
+            'S2BA'
             ]
+
+    data_new = [[0.9,
+                 0.9,
+                 0.2,
+                 0.3,
+                 0.2,
+                 0.21,
+                 0.22,
+                 0.22,
+                 100.01,
+                 100.02,
+                 0.11,
+                 0.12,
+                 0.13,
+                 0.14,
+                 0.15,
+                 0.16,
+                 0.05,
+                 0.06,
+                 0.07,
+                 0.051,
+                 0.052,
+                 0.053,
+                 0.111,
+                 0.122,
+                 0.133,
+                 'S2BA'
+                 ]]
 
 
 class MockLiability:
@@ -81,8 +111,8 @@ class MockLiability:
         "monthly_subs",
         "monthly_redemption",
         "monthly_payment",
-        "monthly_xrate"
-
+        "monthly_xrate",
+        "fund_code"
     ]
     data = [0.2,
             0.9,
@@ -107,8 +137,36 @@ class MockLiability:
             [(m + 1) / 100 for m in range(12)],
             [(m + 1) / 200 for m in range(12)],
             [0.05 for _ in range(12)],
-            [{'ccy': 'USD', 'xrate': 0.9} for _ in range(12)]
+            [{'ccy': 'USD', 'xrate': 0.9} for _ in range(12)],
+            'S2BA'
             ]
+
+    data_new = [[0.2,
+                 0.9,
+                 0.91,
+                 0.1,
+                 0.09,
+                 0.1,
+                 0.1,
+                 0.1,
+                 0.1,
+                 0.1,
+                 0.1,
+                 0.1,
+                 0.1,
+                 0.2,
+                 [{'FR': 0.5}, {'GB': 0.2}, {'US': 0.3}],
+                 'daily',
+                 3,
+                 [{'SPRN': 0.2}, {'GATE': 0.1}, {'RDLF': 0.1}, {'OTHR': 0.5}],
+                 'None',
+                 [100 + m + 1 for m in range(12)],
+                 [(m + 1) / 100 for m in range(12)],
+                 [(m + 1) / 200 for m in range(12)],
+                 [0.05 for _ in range(12)],
+                 [{'ccy': 'USD', 'xrate': 0.9} for _ in range(12)],
+                 'S2BA'
+                 ]]
 
 
 class MockStressTest:
@@ -131,3 +189,12 @@ class MockStressTest:
              'A plan',
              'FCD1'
              ]]
+    data_new = [[date.today(),
+                 'cnav',
+                 'code 1',
+                 '0.74',
+                 None,
+                 None,
+                 'A plan',
+                 'S2BA'
+                 ]]

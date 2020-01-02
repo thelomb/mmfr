@@ -24,6 +24,7 @@
               "lt3y_shadow_vol": {"field": "lt3y_shadow_vol", "type": "XLNumeric"},
               "yms2_perf": {"field": "yms2_perf", "type": "XLNumeric"},
               "ymn3_perf": {"field": "ymn3_perf", "type": "XLNumeric"},
-              "yms1_perf": {"field": "yms1_perf", "type": "XLNumeric"}
+              "yms1_perf": {"field": "yms1_perf", "type": "XLNumeric"},
+              "fund_code": {"field": "fund_code", "type": "XLString"}
   }
 }

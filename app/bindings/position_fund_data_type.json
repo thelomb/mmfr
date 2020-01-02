@@ -130,6 +130,10 @@
   "fin_underlying_type": {
     "field": "FincgUndrlygTp",
     "type": "FinancialUnderlyingType"
+  },
+  "fund_code": {
+    "field": "Fund Code",
+    "type": "XLString"
   }
 }
 }

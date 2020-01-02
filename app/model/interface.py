@@ -28,6 +28,8 @@ class StaticData():
         static_data['share_classes'] = self.create_share_classes(sc_ccy=static_data['sc_ccy'],
                                   sc_isin=static_data['sc_isin'],
                                   sc_name=static_data['sc_name'])
+
+
         fi = FundIdentity(mmf_lei=static_data['mmf_lei'],
                           mmf_national_code=static_data['mmf_national_code'],
                           mmf_member_state_authority=static_data['mmf_member_state_authority'],
