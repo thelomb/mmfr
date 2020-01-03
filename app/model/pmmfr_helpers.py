@@ -47,4 +47,18 @@ class RptData(pmmfr.ReportData3Choice__1):
     def no_activity(self):
         self.DataSetActn = pmmfr.ReportPeriodActivity3Code__1('NOTX')
 
+class QttvData(pmmfr.QuantitativeData4__1):
+    def __init__(self):
+        super().__init__()
 
+
+class StressTestReport(pmmfr.StressTestReport1__1):
+    def __init__(self):
+        super().__init__()
+
+    def new(self, test):
+        self.StrssTstRslt.append(test)
+
+class AsstInf(pmmfr.HoldingAsset3__1):
+    def __init__(self):
+        super().__init__()

@@ -2,8 +2,7 @@ from app.model.fund_calc import LbltyInf
 
 class Liability:
 
-    def __init__(self, fund_code):
-        self.fund_code = fund_code
+    def __init__(self):
         self.details = ''
 
     def from_dict(self, record):
