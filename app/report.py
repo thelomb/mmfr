@@ -1,11 +1,11 @@
 from app.model.excel import Reader, XLType
-from app.config import bindings_path
+from app.config import bindings_path, mmf_xsd_path
 from app.model.static_data import FundStaticData
 from app.model.liability_data import Liability
 from app.model.perf_data import Performance
 from app.model.stress_test_data import StressTest, ActionPlan
 from app.model.position_data import Position
-from app.model.pmmfr_helpers import (document, Report, RptData, FndRpt, MnyMktFndRpt, QttvData, StressTestReport, AsstInf)
+from app.model.pmmfr_helpers import (document, Report, FndRpt, StressTestReport, AsstInf)
 import json
 from xmlschema import XMLSchema
 from lxml import etree
@@ -27,6 +27,7 @@ class Binding:
 
 
 class GenericData:
+    pmmfr_map = None
     rejection_list = []
 
     def __init__(self, data_description):
@@ -43,11 +44,11 @@ class GenericData:
             header, content = xl.parse(path=self.data_description.get('path'),
                                        sheetname=self.data_description.get('sheet'))
         elif self.data_description.get('type') == 'mock':
-            mock = self.data_description.get('data')
+            mock = self.data_description.get('schema')
             header = mock.header
             content = mock.data_new
         else:
-            raise Exception('unknown data source type')
+            raise Exception('unknown schema source type')
         self.row_record_count = len(content)
         return header, content
 
@@ -73,9 +74,12 @@ class GenericData:
             record[key] = XLType(value['type']).clean(row[header.index(value['field'])])
         return record if not reject else None
 
-    @staticmethod
-    def pmmfr_interface(record):
-        raise Exception('sub class not implemented')
+    @classmethod
+    def pmmfr_interface(cls, record):
+        data = cls.pmmfr_map()
+        data.from_dict(record)
+        return data
+        # raise Exception('sub class not implemented')
 
     @classmethod
     def reject_record(cls, header, row, key, value):
@@ -89,33 +93,23 @@ class GenericData:
 
 
 class StaticData(GenericData):
-    
-    @staticmethod
-    def pmmfr_interface(record):
-        fund_static_data = FundStaticData()
-        fund_static_data.from_dict(record)
-        return fund_static_data
+    pmmfr_map = FundStaticData
 
 
 class LiabilityData(GenericData):
-
-    @staticmethod
-    def pmmfr_interface(record):
-        liability_data = Liability()
-        liability_data.from_dict(record)
-        return liability_data
+    pmmfr_map = Liability
 
 
 class PerformanceData(GenericData):
-
-    @staticmethod
-    def pmmfr_interface(record):
-        perf_data = Performance()
-        perf_data.from_dict(record)
-        return perf_data
+    pmmfr_map = Performance
 
 
 class DataCollection(GenericData):
+
+    def __init__(self, data_description):
+        super().__init__(data_description)
+        self.collection = []
+
     def to_dict(self, header, content):
         record_key = []
         row_id = 0
@@ -131,16 +125,13 @@ class DataCollection(GenericData):
 
 
 class StressTestData(DataCollection):
-    @staticmethod
-    def pmmfr_interface(record):
-        stress_test_data = StressTest()
-        stress_test_data.from_dict(record)
-        return stress_test_data
+
+    pmmfr_map = StressTest
+    pmmfr_col = StressTestReport
 
     def xml(self, fund_code):
         test_report = StressTestReport()
         for tst in self.data_dict:
-            print('tst :', tst)
             if tst.get('fund_code')[0] == fund_code:
                 st = StressTest()
                 st.from_dict(tst.get('details'))
@@ -151,18 +142,13 @@ class StressTestData(DataCollection):
 
 class PositionData(DataCollection):
     rejection_list = ['', 0]
-
-    @staticmethod
-    def pmmfr_interface(record):
-        position = Position()
-        position.from_dict(record)
-        return position
+    pmmfr_map = Position
+    pmmfr_col = AsstInf
 
     def xml(self, fund_code):
         ai = AsstInf()
         positions = []
         for pos in self.data_dict:
-            print('tst :', pos)
             if pos.get('fund_code')[0] == fund_code:
                 p = Position()
                 p.from_dict(pos.get('details'))
@@ -172,7 +158,7 @@ class PositionData(DataCollection):
 
 class ReportData:
 
-    xsd = XMLSchema('app/data/PLO_MMF_Regulatory_reporting_MoneyMarketFundReportV01_auth_093_001_01.xsd')
+    xsd = XMLSchema(mmf_xsd_path)
 
     def __init__(self,
                  static_data,
@@ -182,36 +168,26 @@ class ReportData:
                  performance_data=None):
         self.document = document
         self.funds = []
-        self.output_path = None
         self.static_data = StaticData(static_data)
-        self.liability_data = None
-        self.stress_test_data = None
-        self.performance_data = None
-        self.position_data = None
         self.liability_data = LiabilityData(liability_data) if liability_data else None
         self.stress_test_data = StressTestData(stress_test_data) if stress_test_data else None
-        print('stress test data in init', self.stress_test_data)
         self.performance_data = PerformanceData(performance_data) if performance_data else None
         self.position_data = PositionData(position_data) if position_data else None
         self.set_funds()
 
     def generate_xml(self, output_path):
-        print('stress test data in gen xml', self.stress_test_data)
-        mmf = MnyMktFndRpt()
         for fund in self.funds:
             sd = self.static_data.xml(fund)
             r = Report()
             r.fund_data(sd.FndData)
-            r.RptgPrdFrToQrtr = sd.RptgPrdFrToQrtr
-            r.RptgPrd = sd.RptgPrd
-            r.RptgYr = sd.RptgYr
-            r.RptData = self.report_data(fund)
-            print('rpt ', fund)
-            r.RptData.validateBinding()
-            fr = FndRpt()
-            fr.create(r)
-            mmf.new_fund(fr)
-            self.document.MnyMktFndRpt = mmf
+            r.report_dates(sd)
+            r.reporting_data(fund=fund,
+                             liability_data=self.liability_data,
+                             performance_data=self.performance_data,
+                             stress_test_data=self.stress_test_data,
+                             position_data=self.position_data)
+            fr = FndRpt(r)
+            self.document.MnyMktFndRpt.append(fr)
         self.save_xml(output_path)
 
     def save_xml(self, output_path):
@@ -229,26 +205,6 @@ class ReportData:
         else:
             for fund in self.static_data.data_dict:
                 self.funds.append(fund.get('fund_code'))
-
-    def report_data(self, fund):
-        rd = RptData()
-        liability = self.liability_data.xml(fund)
-        perf = self.performance_data.xml(fund)
-        print('stress test in report data: ', self.stress_test_data)
-        stress_test = self.stress_test_data.xml(fund)
-        pos = self.position_data.xml(fund)
-        if liability is None or perf is None or stress_test is None or pos is None:
-            rd.no_activity()
-        else:
-            q = QttvData()
-            q.AsstInf = pos
-            q.PrtflPrfrmnc = perf.details
-            q.StrssTst = stress_test
-            q.LbltyInf = liability.details
-            rd.QttvData = q
-            print('yo!', fund)
-        return rd
-
 
     def validate(self):
         if ReportData.xsd.is_valid(self.output_path):

@@ -37,7 +37,7 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
 
-    @param xml_text An XML document.  This should be data (Python 2
+    @param xml_text An XML document.  This should be schema (Python 2
     str or Python 3 bytes), or a text (Python 2 unicode or Python 3
     str) in the L{pyxb._InputEncoding} encoding.
 
@@ -82,7 +82,7 @@ class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     """An atomic simple type."""
 
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 14, 10)
+    _XSDLocation = pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 14, 10)
     _Documentation = None
 STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON, enum_prefix=None)
 STD_ANON.IN = STD_ANON._CF_enumeration.addEnumeration(unicode_value='IN', tag='IN')
@@ -100,55 +100,55 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 5, 4)
+    _XSDLocation = pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 5, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}FullName uses Python identifier FullName
-    __FullName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'FullName'), 'FullName', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01FullName', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 7, 8), )
+    __FullName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'FullName'), 'FullName', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01FullName', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 7, 8), )
 
     
     FullName = property(__FullName.value, __FullName.set, None, None)
 
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}House uses Python identifier House
-    __House = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'House'), 'House', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01House', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 8, 8), )
+    __House = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'House'), 'House', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01House', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 8, 8), )
 
     
     House = property(__House.value, __House.set, None, None)
 
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}Street uses Python identifier Street
-    __Street = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'Street'), 'Street', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01Street', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 9, 8), )
+    __Street = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'Street'), 'Street', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01Street', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 9, 8), )
 
     
     Street = property(__Street.value, __Street.set, None, None)
 
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}Town uses Python identifier Town
-    __Town = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'Town'), 'Town', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01Town', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 10, 8), )
+    __Town = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'Town'), 'Town', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01Town', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 10, 8), )
 
     
     Town = property(__Town.value, __Town.set, None, None)
 
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}County uses Python identifier County
-    __County = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'County'), 'County', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01County', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 11, 8), )
+    __County = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'County'), 'County', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01County', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 11, 8), )
 
     
     County = property(__County.value, __County.set, None, None)
 
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}PostCode uses Python identifier PostCode
-    __PostCode = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'PostCode'), 'PostCode', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01PostCode', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 12, 8), )
+    __PostCode = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'PostCode'), 'PostCode', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01PostCode', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 12, 8), )
 
     
     PostCode = property(__PostCode.value, __PostCode.set, None, None)
 
     
     # Element {urn:iso:std:iso:20022:tech:xsd:DRAFT3auth.093.001.01}Country uses Python identifier Country
-    __Country = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'Country'), 'Country', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01Country', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 13, 8), )
+    __Country = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'Country'), 'Country', '__urnisostdiso20022techxsdDRAFT3auth_093_001_01_CTD_ANON_urnisostdiso20022techxsdDRAFT3auth_093_001_01Country', False, pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 13, 8), )
 
     
     Country = property(__Country.value, __Country.set, None, None)
@@ -168,24 +168,24 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
 _module_typeBindings.CTD_ANON = CTD_ANON
 
 
-Address = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Address'), CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 4, 2))
+Address = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Address'), CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 4, 2))
 Namespace.addCategoryObject('elementBinding', Address.name().localName(), Address)
 
 
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'FullName'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 7, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'FullName'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 7, 8)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'House'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 8, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'House'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 8, 8)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Street'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 9, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Street'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 9, 8)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Town'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 10, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Town'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 10, 8)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'County'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 11, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'County'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 11, 8)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'PostCode'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 12, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'PostCode'), pyxb.binding.datatypes.string, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 12, 8)))
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Country'), STD_ANON, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 13, 8)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'Country'), STD_ANON, scope=CTD_ANON, location=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 13, 8)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -194,38 +194,38 @@ def _BuildAutomaton ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 11, 8))
+    cc_0 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 11, 8))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 13, 8))
+    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 13, 8))
     counters.add(cc_1)
     states = []
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'FullName')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 7, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'FullName')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 7, 8))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'House')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 8, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'House')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 8, 8))
     st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'Street')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 9, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'Street')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 9, 8))
     st_2 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'Town')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 10, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'Town')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 10, 8))
     st_3 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'County')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 11, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'County')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 11, 8))
     st_4 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'PostCode')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 12, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'PostCode')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 12, 8))
     st_5 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_5)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'Country')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/data/example.xsd', 13, 8))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'Country')), pyxb.utils.utility.Location('/Users/plo/PyCharm/mmfr/schema/example.xsd', 13, 8))
     st_6 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_6)
     transitions = []

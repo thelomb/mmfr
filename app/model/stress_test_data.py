@@ -1,5 +1,6 @@
 from app.model.fund_calc import StressTestResult
-from app.model import pmmfr
+from app.lib import pmmfr
+
 
 class StressTest:
 

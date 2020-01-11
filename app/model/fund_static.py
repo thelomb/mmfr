@@ -1,4 +1,4 @@
-from . import pmmfr
+from ..lib import pmmfr
 from datetime import date
 from .helper import quarter_of_date, quarter_start, quarter_end, is_european_country
 from .errors import EmptyDate

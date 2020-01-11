@@ -1,4 +1,4 @@
-from app.model import pmmfr
+from app.lib import pmmfr
 
 supranationals = []
 unknowns = []
@@ -903,7 +903,7 @@ class LbltyInf(pmmfr.LiabilityData3__1):
                  investor_pension_fund_pct,
                  investor_unknown_pct,
                  country_breakdown_pct,  # list
-                 redemption_frequency,  # enum -> in static data...
+                 redemption_frequency,  # enum -> in static schema...
                  notice_period,
                  arrangement_breakdown_pct,  # list
                  other_arrangement,
