@@ -2,27 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a6f73fd5-82cd-4eef-8273-2e7358008f84" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/mmfr_report.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/fund_calc.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/fund_calc.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/fund_static.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/fund_static.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/interface.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/interface_pos.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/pmmfr.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/pmmfr_helpers.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/pmmfr_helpers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/report.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/model/stress_test_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/model/stress_test_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/old/exa2.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/old/exa2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/old/mmfr_small.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/old/mmfr_small.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/old/pmmfr_old.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/old/pmmfr_old.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/output/new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/output/new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/output/new_beautiful.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/output/new_beautiful.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/report.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/report.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/execution.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mmfr.py" beforeDir="false" afterPath="$PROJECT_DIR$/mmfr.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -208,7 +188,7 @@
       <workItem from="1575899234923" duration="97252000" />
       <workItem from="1577001287639" duration="8914000" />
       <workItem from="1577028254412" duration="118769000" />
-      <workItem from="1578331809591" duration="502000" />
+      <workItem from="1578331809591" duration="723000" />
     </task>
     <servers />
   </component>
